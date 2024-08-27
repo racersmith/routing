@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Query - Routing Docs</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Query";
+        var mkdocs_page_input_path = "routes/query.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Routing Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../quick-start/">Quick Start</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../data-loading/">Index</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../migrating/">Index</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Navigating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/">Navigation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/Navigation%20Components/">Navigation Components</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Routes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Route Class</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../data/">Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../params/">Params</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Query</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#navigating">Navigating</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#parsing-query-parameters">Parsing Query Parameters</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#using-a-query-validator">Using a query validator</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#query-encoding">Query encoding</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loading-a-new-instance-of-a-form">Loading a new instance of a form</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../redirecting/">Redirecting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Routing context</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routing-context/">Routing Context</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Theme</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../theme/">Index</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Routing Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Routes</li>
+      <li class="breadcrumb-item active">Query</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="query">Query<a class="headerlink" href="#query" title="Permanent link">&para;</a></h1>
+<p>Query parameters are encoded in a url following a <code>?</code>, e.g. <code>/dashboard?tab=sales&amp;page=1</code>.
+Query parameters may be referred to by different names, e.g. search, search params, query params, etc.</p>
+<p>In this routing library we will refer to <code>query</code> as a dictionary of query parameters.
+And a <code>query string</code> will be the url encoded version of the <code>query</code>.</p>
+<p>The <code>query</code> is best used to encode the state of the page.
+For example, if you have a dashboard page with a tab component, you can use the query to encode the active tab.</p>
+<h2 id="navigating">Navigating<a class="headerlink" href="#navigating" title="Permanent link">&para;</a></h2>
+<p>Let's say you have a dashboard page with a tab component.
+The tab component has 2 tabs, income and expenses.</p>
+<pre><code class="language-python">
+from ._anvil_designer import DashboardTemplate
+from routing.router import navigate, RoutingContext
+
+class Dashboard(DashboardTemplate):
+    def __init__(self, routing_context: RoutingContext, **properties):
+        self.routing_context = routing_context
+        self.routing_context.add_event_handler(&quot;query_changed&quot;, self.on_query_change)
+        self.set_tab_from_query()
+        self.init_components(**properties)
+
+    def set_tab_from_query(self, **event_args):
+        query = self.routing_context.query
+        self.tab_1.value = query.get(&quot;tab&quot;, &quot;income&quot;)
+
+    def tab_changed(self, **event_args):
+        tab_value = self.tab_1.value
+        navigate(query={&quot;tab&quot;: tab_value})
+
+
+</code></pre>
+<p>Note that in the <code>tab_changed</code> event handler, we are navigating to the same page, and so, we don't need to include the <code>path</code> in the <code>navigate</code> call.
+If we want to be explicit, we can use <code>path="./"</code> or <code>path="/dashboard"</code>.</p>
+<p>By default, if the query parameters change, the page will not be reloaded.
+When the query parameters change, we can listen for the <code>query_changed</code> event and update our page state accordingly.</p>
+<h2 id="parsing-query-parameters">Parsing Query Parameters<a class="headerlink" href="#parsing-query-parameters" title="Permanent link">&para;</a></h2>
+<p>Since query parameters are encoded in the url, we may need to decode them.
+It's also generally a good idea to ignore unknown query parameters and provide sensible defaults if any are missing, or incorrect. This provides a better user experience.</p>
+<pre><code class="language-python">from routing.router import Route
+
+class DashboardRoute(Route):
+    path = &quot;/dashboard&quot;
+    form = &quot;Pages.Dashboard&quot;
+
+    def parse_query(self, query):
+        valid_tabs = [&quot;income&quot;, &quot;expenses&quot;]
+        tab = query.get(&quot;tab&quot;, &quot;income&quot;)
+        if tab not in valid_tabs:
+            tab = &quot;income&quot;
+
+        return {&quot;tab&quot;: tab}
+
+
+</code></pre>
+<h3 id="using-a-query-validator">Using a query validator<a class="headerlink" href="#using-a-query-validator" title="Permanent link">&para;</a></h3>
+<p>You can use a validator library. And if the validator has a <code>parse</code> method, it can be used as the <code>parse_query</code> attribute.</p>
+<pre><code class="language-python">
+from anvil_extras import zod as z
+
+class DashboardRoute(Route):
+    path = &quot;/dashboard&quot;
+    form = &quot;Pages.Dashboard&quot;
+
+    parse_query = z.typed_dict({
+        &quot;tab&quot;: z.enum([&quot;income&quot;, &quot;expenses&quot;]).catch(&quot;income&quot;)
+    })
+
+
+</code></pre>
+<h2 id="query-encoding">Query encoding<a class="headerlink" href="#query-encoding" title="Permanent link">&para;</a></h2>
+<p>The routing library can encode any json-able object as a query parameter.
+Where a query parameter is a <code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code> or <code>None</code> this will be flat.</p>
+<p>e.g. <code>?foo=bar&amp;baz=1&amp;eggs=true</code> will be decoded as <code>{"foo": "bar", "baz": 1, "eggs": True}</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have numbers in your query parameters, but these should actually be strings, you can convert these to <code>str</code> in your <code>parse_query</code> method.</p>
+</div>
+<p>For nested, json-able objects, i.e. <code>lists</code> and <code>dicts</code>, the routing library will encode the object as a json string.</p>
+<h2 id="loading-a-new-instance-of-a-form">Loading a new instance of a form<a class="headerlink" href="#loading-a-new-instance-of-a-form" title="Permanent link">&para;</a></h2>
+<p>By default the routing library will not load a new instance of a form when the query parameters change.</p>
+<p>If you wish to load a new instance of a form when certain query parameters change, you can use the <code>loader_deps</code> method.</p>
+<p>This method should return a <code>dict</code> of dependencies, which determine when a form and it's data should be loaded. The return value from <code>loader_deps</code> should be json-able.</p>
+<pre><code class="language-python">
+from routing.router import Route
+
+class DashboardRoute(Route):
+    path = &quot;/dashboard&quot;
+    form = &quot;DashboardForm&quot;
+
+    def loader_deps(self, **loader_args):
+        # this ensures that whenever the `tab` changes a new instance of the form is loaded
+        query = loader_args[&quot;query&quot;]
+        return {&quot;tab&quot;: query[&quot;tab&quot;]}
+
+</code></pre>
+<p>For more details on <code>loader_deps</code> see the data loading section.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../params/" class="btn btn-neutral float-left" title="Params"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../redirecting/" class="btn btn-neutral float-right" title="Redirecting">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../params/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../redirecting/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

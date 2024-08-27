@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Route Class - Routing Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Route Class";
+        var mkdocs_page_input_path = "routes/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Routing Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Index</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Navigating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/">Navigation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/Navigation%20Components/">Navigation Components</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Routes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Route Class</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#form-instantiation">Form instantiation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#caching-forms">Caching Forms</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#not-found-form">Not Found Form</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-form">Error Form</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ordering-routes">Ordering Routes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#server-routes">Server Routes</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="data/">Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="params/">Params</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="query/">Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="redirecting/">Redirecting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Routing context</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../routing-context/">Routing Context</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Theme</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Index</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Routing Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Routes</li>
+      <li class="breadcrumb-item active">Route Class</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="route-class">Route Class<a class="headerlink" href="#route-class" title="Permanent link">&para;</a></h1>
+<p>The <code>Route</code> class is used to define routes for your app. When a user navigates to a path, the router will look for a matching route. The router will call <code>anvil.open_form</code> on the matching route's form.</p>
+<pre><code class="language-python"># routes.py
+from routing.router import Route
+
+class IndexRoute(Route):
+    path = &quot;/&quot;
+    form = &quot;Pages.Index&quot;
+
+class AboutRoute(Route):
+    path = &quot;/about&quot;
+    form = &quot;Pages.About&quot;
+
+class ContactRoute(Route):
+    path = &quot;/contact&quot;
+    form = &quot;Pages.Contact&quot;
+</code></pre>
+<p>The above code can use the <code>Route.create()</code> method for convenience:</p>
+<pre><code class="language-python"># routes.py
+from routing.router import Route
+
+IndexRoute = Route.create(path=&quot;/&quot;, form=&quot;Pages.Index&quot;)
+AboutRoute = Route.create(path=&quot;/about&quot;, form=&quot;Pages.About&quot;)
+ContactRoute = Route.create(path=&quot;/contact&quot;, form=&quot;Pages.Contact&quot;)
+</code></pre>
+<h2 id="form-instantiation">Form instantiation<a class="headerlink" href="#form-instantiation" title="Permanent link">&para;</a></h2>
+<p>When a form is instantiated, the router will pass a <code>routing_context</code> property to the form. This property holds information about the current route and the current navigation context.</p>
+<pre><code class="language-python">from ._anvil_designer import IndexTemplate
+
+from routing.router import RoutingContext
+
+class IndexTemplate(IndexTemplate):
+    def __init__(self, routing_context: RoutingContext, **properties):
+        self.routing_context = routing_context
+        self.init_components(**properties)
+
+</code></pre>
+<p>Adding the <code>RoutingContext</code> type definition will allow anvil to show autocompletion for the <code>routing_context</code> property.</p>
+<h2 id="caching-forms">Caching Forms<a class="headerlink" href="#caching-forms" title="Permanent link">&para;</a></h2>
+<p>By default, the <code>open_form</code> will NOT cache the form. This means a new instance of the form will be created every time the user navigates to the route. If you want to cache the form, you can set the <code>cache_form</code> attribute to <code>True</code> on the route.</p>
+<p>You can set this attribute on specific routes.</p>
+<pre><code class="language-python">class IndexRoute(Route):
+    path = &quot;/&quot;
+    form = &quot;Pages.Index&quot;
+    cache_form = True
+</code></pre>
+<p>Or you can set this attribute for all routes by setting the <code>cache_form</code> attribute on the <code>Route</code> class.</p>
+<pre><code class="language-python">from routing.router import Route
+
+# override the default behavior for all routes
+Route.cache_form = True
+
+class IndexRoute(Route):
+    path = &quot;/&quot;
+    form = &quot;Pages.Index&quot;
+</code></pre>
+<h2 id="not-found-form">Not Found Form<a class="headerlink" href="#not-found-form" title="Permanent link">&para;</a></h2>
+<p>If a route is not found, the router will call <code>anvil.open_form</code> on the matching route's not found form.</p>
+<p>If no not found form is defined, the router will raise a <code>NotFound</code> exception, which will be caught by Anvil's exception handler.</p>
+<pre><code class="language-python">
+from routing.router import Route
+
+# you probably want to define a default not found form
+Route.not_found_form = &quot;Pages.NotFound&quot;
+
+</code></pre>
+<h2 id="error-form">Error Form<a class="headerlink" href="#error-form" title="Permanent link">&para;</a></h2>
+<p>When a route throws an exception, the router will call <code>anvil.open_form</code> on the matching route's error form.</p>
+<p>If no error form is defined, the error will be caught by Anvil's exception handler.</p>
+<pre><code class="language-python">from routing.router import Route
+
+# Either define the error form globally
+Route.error_form = &quot;Pages.Error&quot;
+
+
+# or define the error form per route
+class IndexRoute(Route):
+    path = &quot;/&quot;
+    form = &quot;Pages.Index&quot;
+    error_form = &quot;Pages.Error&quot;
+
+</code></pre>
+<h2 id="ordering-routes">Ordering Routes<a class="headerlink" href="#ordering-routes" title="Permanent link">&para;</a></h2>
+<p>The router will try to match routes in the order they are defined.</p>
+<pre><code class="language-python">from routing.router import Route
+
+class AuthorsRoute(Route):
+    path = &quot;/authors&quot;
+    form = &quot;Pages.Authors&quot;
+
+class NewAuthorRoute(Route):
+    path = &quot;/authors/new&quot;
+    form = &quot;Pages.NewAuthor&quot;
+
+class AuthorRoute(Route):
+    path = &quot;/authors/:id&quot;
+    form = &quot;Pages.Author&quot;
+
+</code></pre>
+<p>In the above example, it's important that the <code>NewAuthorRoute</code> comes before the <code>AuthorRoute</code> in the list of routes. This is because <code>/authors/new</code> is a valid path for the <code>AuthorRoute</code>, so the router would successfully match the route and open the form.</p>
+<h2 id="server-routes">Server Routes<a class="headerlink" href="#server-routes" title="Permanent link">&para;</a></h2>
+<p>When a user navigates to a url directly, the router will match routes on the server. </p>
+<p>When you import your routes in server code, the router will automatically create a server route for each route.</p>
+<pre><code class="language-python"># ServerRoutes.py
+from . import routes
+</code></pre>
+<p>Under the hood this will look something like:</p>
+<pre><code class="language-python"># ServerRoutes.py
+from . import routes
+
+# pseudo code - for illustration only
+for route in Routes.__subclasses__():
+    if route.path is None:
+        continue
+
+    @anvil.server.route(route.path)
+    def server_route(**params):
+        ...
+        # return a response object that will open the form on the client
+
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../navigating/Navigation%20Components/" class="btn btn-neutral float-left" title="Navigation Components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="data/" class="btn btn-neutral float-right" title="Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../navigating/Navigation%20Components/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="data/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

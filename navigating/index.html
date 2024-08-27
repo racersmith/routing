@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Navigation - Routing Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Navigation";
+        var mkdocs_page_input_path = "navigating/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Routing Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Index</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Navigating</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Navigation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#navigating-with-navigate">Navigating with navigate</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#call-signatures">Call Signatures</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#arguments">Arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-of-form_properties">Use of form_properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-of-nav_context">Use of nav_context</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="Navigation%20Components/">Navigation Components</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Routes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/">Route Class</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/data/">Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/params/">Params</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/query/">Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/redirecting/">Redirecting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Routing context</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../routing-context/">Routing Context</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Theme</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Index</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Routing Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Navigating</li>
+      <li class="breadcrumb-item active">Navigation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">&para;</a></h1>
+<p>There are two ways to navigate. The first is with the <code>navigate</code> and the second is with a <a href="/navigating/Navigation%20Components">navigation component</a>.</p>
+<h2 id="navigating-with-navigate">Navigating with <code>navigate</code><a class="headerlink" href="#navigating-with-navigate" title="Permanent link">&para;</a></h2>
+<p>The <code>navigate</code> function is a function that you will likely call from a click handler.</p>
+<h3 id="call-signatures">Call Signatures<a class="headerlink" href="#call-signatures" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>navigate(*, path=None, params=None, query=None, hash=None, replace=False, nav_context=None, form_properties=None)</code>
+    <em>use keyword arguments only</em></li>
+<li><code>navigate(path, **kws)</code>
+    <em>the first argument can be the path</em></li>
+<li><code>navigate(url, **kws)</code>
+    <em>the first argument ca be a url</em></li>
+<li><code>navigate(routing_context, **kws)</code>
+    <em>the first argument can be a routing context</em></li>
+</ul>
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
+<dl>
+<dt><code>path</code></dt>
+<dd>
+<p>The path to navigate to. e.g. <code>/articles/123</code> or <code>/articles</code> or <code>/articles/:id</code>. The path can be relative <code>./</code>. If not set then the path will be the current path.</p>
+</dd>
+<dt><code>params</code></dt>
+<dd>
+<p>The params for the path. e.g. <code>{"id": 123}</code></p>
+</dd>
+<dt><code>query</code></dt>
+<dd>
+<p>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code></p>
+</dd>
+<dt><code>hash</code></dt>
+<dd>
+<p>The hash to navigate to.</p>
+</dd>
+<dt><code>replace</code></dt>
+<dd>
+<p>If <code>True</code> then the current url will be replaced with the new url (default is <code>False</code>).</p>
+</dd>
+<dt><code>nav_context</code></dt>
+<dd>
+<p>The nav context to for this navigation.</p>
+</dd>
+<dt><code>form_properties</code></dt>
+<dd>
+<p>The form properties to pass to the form when it is opened.</p>
+</dd>
+</dl>
+<h3 id="use-of-form_properties">Use of <code>form_properties</code><a class="headerlink" href="#use-of-form_properties" title="Permanent link">&para;</a></h3>
+<p>The <code>form_properties</code> is a dictionary that is passed to the <code>open_form</code> function. A common use case is to pass the form's <code>item</code> property. Note that if you are relying on <code>form_properties</code> you will always need to account for <code>form_properties</code> being an empty dictionary, when the user navigates by changing the url directly.</p>
+<pre><code class="language-python">from routing import router
+
+class RowTemplate(RowTemplateTemplate):
+    def __init__(self, **properties):
+        self.init_components(**properties)
+
+    def button_click(self, **event_args):
+        router.navigate(path=&quot;/articles/:id&quot;, params={&quot;id&quot;: self.item[&quot;id&quot;]}, form_properties={&quot;item&quot;: self.item})
+</code></pre>
+<p>And then in the <code>/articles/:id</code> route:</p>
+<pre><code class="language-python">
+from routing import router
+
+class ArticleForm(ArticleFormTemplate):
+    def __init__(self, routing_context: router.RoutingContext, **properties):
+        self.routing_context = routing_context
+        if properties.get(&quot;item&quot;) is None:
+            # the user navigated directly to the form by changing the url
+            properties[&quot;item&quot;] = anvil.server.call(&quot;get_article&quot;, routing_context.params[&quot;id&quot;])
+
+        self.init_components(**properties)
+
+</code></pre>
+<h3 id="use-of-nav_context">Use of <code>nav_context</code><a class="headerlink" href="#use-of-nav_context" title="Permanent link">&para;</a></h3>
+<p>The <code>nav_context</code> is a dictionary that is passed to the <code>navigate</code> function. A use case for this is to pass the previous routing context to the next routing context. This is useful when you want to navigate to a new route, but you want to preserve the previous route's data. Particularly if the previous route uses query parameters that determine the state of the form.</p>
+<pre><code class="language-python">from routing import router
+
+def on_button_click(self, **event_args):
+    current_context = router.get_routing_context()
+    router.navigate(path=&quot;/foo&quot;, nav_context={&quot;prev_context&quot;: current_context})
+
+</code></pre>
+<p>And then in the <code>/foo</code> route:</p>
+<pre><code class="language-python">from routing import router
+
+class FooForm(FooFormTemplate):
+    def __init__(self, routing_context: router.RoutingContext, **properties):
+        self.routing_context = routing_context
+        self.init_components(**properties)
+
+    def cancel_button_click(self, **event_args):
+        prev_context = self.routing_context.nav_context.get(&quot;prev_context&quot;)
+        if prev_context is not None:
+            router.navigate(prev_context)
+        else:
+            # no nav-context - the user navigated directly to the form by changing the url
+            router.navigate(path=&quot;/&quot;)
+
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../migrating/" class="btn btn-neutral float-left" title="Index"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="Navigation%20Components/" class="btn btn-neutral float-right" title="Navigation Components">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../migrating/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="Navigation%20Components/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
