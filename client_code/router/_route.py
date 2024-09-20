@@ -64,10 +64,10 @@ def _create_server_route(cls):
         search = encode_query_params(request.query_params)
         location = Location(path=path, search=search, key="default")
         match = get_match(location=location)
-        logger.debug(f"serving route from the server: {location}")
+        logger.debug(f"serving route from the server: {location!r}")
         if match is None:
             # this shouldn't happen
-            raise Exception(f"No match for '{location}'")
+            raise Exception(f"No match for '{location!r}'")
 
         route = match.route
         context = RoutingContext(match=match)
@@ -81,7 +81,7 @@ def _create_server_route(cls):
                 params=r.params,
                 hash=r.hash,
             )
-            logger.debug(f"redirecting to {location}")
+            logger.debug(f"redirecting to {location!r}")
             url = location.get_url(True)
             return anvil.server.HttpResponse(status=302, headers={"Location": url})
         except Exception as e:
@@ -96,7 +96,7 @@ def _create_server_route(cls):
             meta = route.meta(**context._loader_args)
         except Exception as e:
             logger.error(
-                f"error getting meta data for {location}: got {e!r}\n"
+                f"error getting meta data for {location!r}: got {e!r}\n"
                 f"{traceback.format_exc()}"
             )
             meta = None
@@ -105,7 +105,7 @@ def _create_server_route(cls):
             data = route.load_data(**context._loader_args)
         except Exception as e:
             logger.error(
-                f"error loading data for {location}, got {e!r}\n"
+                f"error loading data for {location!r}, got {e!r}\n"
                 f"{traceback.format_exc()}"
             )
             # TODO: handle error on the client
