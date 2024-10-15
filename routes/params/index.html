@@ -47,28 +47,28 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../../how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../navigating/">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../forms/">Forms</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Params</a>
     <ul class="current">
@@ -84,9 +84,24 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -121,7 +136,7 @@ class AuthorRoute(Route):
     path = &quot;/authors/:id&quot;
     form = &quot;Pages.Author&quot;
 </code></pre>
-<p>When a user navigates to <code>/authors/123</code>, the routing context will include the path params <code>{"id": "123"}</code>.</p>
+<p>When a user navigates to <code>/authors/123</code>, the routing context will include the path params <code>{"id": 123}</code>.</p>
 <pre><code class="language-python">from ._anvil_designer import AuthorTemplate
 from routing.router import RoutingContext
 
@@ -132,14 +147,18 @@ class Author(AuthorTemplate):
         self.init_components(**properties)
 </code></pre>
 <h2 id="parsing-params">Parsing Params<a class="headerlink" href="#parsing-params" title="Permanent link">&para;</a></h2>
-<p>By default, the params are always strings. If you want to parse the params into a different type, you can use the <code>parse_params</code> method.</p>
+<p>By default, the params are considered json-able. e.g. if the path is <code>"/articles/123"</code> then the <code>123</code> is an integer after calling <code>json.loads</code>. If you want to parse the params into a different type, you can use the <code>parse_params</code> method.</p>
 <pre><code class="language-python">class AuthorRoute(Route):
     path = &quot;/authors/:id&quot;
     form = &quot;Pages.Author&quot;
 
     def parse_params(self, params):
-        return {&quot;id&quot;: int(params[&quot;id&quot;])}
+        return {&quot;id&quot;: str(params[&quot;id&quot;])}
 </code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have numbers in your params, but these should actually be strings, you can convert these to <code>str</code> in your <code>parse_params</code> method.</p>
+</div>
 <h2 id="navigating-with-params">Navigating with Params<a class="headerlink" href="#navigating-with-params" title="Permanent link">&para;</a></h2>
 <p>You can navigate to a route with params by passing the params option to the <code>navigate</code> function.</p>
 <pre><code class="language-python">from routing.router import navigate
@@ -170,23 +189,18 @@ class RowTemplate(RowTemplateTemplate):
 <p><strong>Other equivalent ways to navigate include:</strong></p>
 <pre><code class="language-python">from routing.router import navigate
 navigate(path=&quot;/authors/123&quot;)
-# the params will still become {&quot;id&quot;: &quot;123&quot;}
+# the params will still become {&quot;id&quot;: 123}
 </code></pre>
 <pre><code class="language-python">from routing.router import navigate
 from ...routes import AuthorRoute
 
 navigate(path=AuthorRoute.path, params={&quot;id&quot;: 123})
 </code></pre>
-<pre><code class="language-python">from routing.router import navigate
-from ...routes import AuthorRoute
-
-navigate(AuthorRoute, params={&quot;id&quot;: 123})
-</code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../data/" class="btn btn-neutral float-left" title="Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../forms/" class="btn btn-neutral float-left" title="Forms"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../query/" class="btn btn-neutral float-right" title="Query">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -210,7 +224,7 @@ navigate(AuthorRoute, params={&quot;id&quot;: 123})
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../data/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../forms/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../query/" style="color: #fcfcfc">Next &raquo;</a></span>

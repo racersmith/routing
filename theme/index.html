@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Index - Routing Docs</title>
+    <title>Theme - Routing Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Index";
+        var mkdocs_page_name = "Theme";
         var mkdocs_page_input_path = "theme/index.md";
         var mkdocs_page_url = null;
       </script>
@@ -47,28 +47,28 @@
                 <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../navigating/">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../navigating/Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../routes/data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/params/">Params</a>
                   </li>
@@ -82,9 +82,28 @@
                   <li class="toctree-l1"><a class="reference internal" href="../routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Index</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Theme</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#existing-themes">Existing Themes</a>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -102,7 +121,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Theme</li>
-      <li class="breadcrumb-item active">Index</li>
+      <li class="breadcrumb-item active">Theme</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -111,12 +130,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h1>
+<p>If you are writing a custom theme for your anvil app, you may want to use your own components for the <code>NavLink</code> and <code>Anchor</code> base classes.</p>
+<p>The default implementation for the <code>NavLink</code> and <code>Anchor</code> base classes are:</p>
+<pre><code class="language-python">
+import anvil
+
+class NavLinkBase(anvil.Link):
+    def __init__(self, active=None, **properties):
+        self._props = properties
+        super().__init__(**properties)
+
+    @property
+    def active(self):
+        return self._props.get(&quot;active&quot;)
+
+    @active.setter
+    def active(self, value):
+        self._props[&quot;active&quot;] = value
+        self.role = &quot;active&quot; if value else None
+
+
+class AnchorBase(anvil.Link):
+    pass
+
+</code></pre>
+<p><strong>TODO - not yet supported APIs</strong></p>
+<p>To tell the routing library to use your own base classes, you can call the anvil's <code>set_config</code> method in the preload module.</p>
+<pre><code class="language-python">
+# preload module
+
+from anvil import set_config
+from ...MyNavLink import MyNavLink
+from ...MyAnchor import MyAnchor
+set_config(nav_link=MyNavLink, anchor=MyAnchor)
+
+</code></pre>
+<h2 id="existing-themes">Existing Themes<a class="headerlink" href="#existing-themes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Mantine</li>
+<li>M3 <strong>TODO</strong></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using multiple themes that set the <code>NavLink</code> and <code>Anchor</code> base classes, then the last theme to set the base classes will be used.</p>
+</div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../routing-context/" class="btn btn-neutral float-left" title="Routing Context"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../migrating/" class="btn btn-neutral float-left" title="Migrating"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -139,7 +202,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../routing-context/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../migrating/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Index - Routing Docs</title>
+    <title>Data Loading - Routing Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Index";
+        var mkdocs_page_name = "Data Loading";
         var mkdocs_page_input_path = "data-loading/index.md";
         var mkdocs_page_url = null;
       </script>
@@ -47,28 +47,28 @@
                 <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Index</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../navigating/">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../navigating/Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../routes/data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/params/">Params</a>
                   </li>
@@ -82,9 +82,34 @@
                   <li class="toctree-l1"><a class="reference internal" href="../routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Data Loading</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#invalidating-data">Invalidating Data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pending-form">Pending Form</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -102,7 +127,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Data loading</li>
-      <li class="breadcrumb-item active">Index</li>
+      <li class="breadcrumb-item active">Data Loading</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -111,13 +136,133 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="data-loading">Data Loading<a class="headerlink" href="#data-loading" title="Permanent link">&para;</a></h1>
+<p>Most apps will not need to use the <code>load_data</code> method and will load data during the form's instantiation, or pass data through form properties. Many of the advantages of data loading can be achieved by using <a href="/caching#form-caching">cached forms</a>.</p>
+<p>An advantage of the data loading mechanism, over loading data during form instantiation, is that it allows data to be sent from the server during the initial page request. However, since the routing library takes advantage of client-side routing after the initial page request, the advantages of data loading is limited to the first page request.</p>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<p>Data caching is determined by the <code>path</code> and the dictionary returned by the <code>cache_deps</code> method. If your App needs to share data between routes then you may find that data caching is not sufficient and result in duplicate data being loaded. You can mitigate duplicate data by using <code>form_properties</code> or <code>nav_context</code> for simple data sharing.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p><strong>Without a load_data method</strong></p>
+<pre><code class="language-python"># routes.py
+from routing.router import Route
+
+Route.cache_form = True
+
+class ArticleRoute(Route):
+    path = &quot;/articles/:id&quot;
+    form = &quot;Pages.Article&quot;
+
+</code></pre>
+<pre><code class="language-python">from routing import router
+
+class ArticleForm(ArticleFormTemplate):
+    def __init__(self, routing_context: router.RoutingContext, **properties):
+        self.routing_context = routing_context
+        if properties.get(&quot;item&quot;) is None:
+            # the user navigated directly to the form by changing the url
+            properties[&quot;item&quot;] = anvil.server.call(&quot;get_article&quot;, routing_context.params[&quot;id&quot;])
+
+        self.init_components(**properties)
+
+</code></pre>
+<p>In the above example, if a user goes directly to the url <code>/articles/123</code>, the initial page request will send the user to the <code>ArticleForm</code>, but there will be no data. The App will then need to make a server call to get the data.</p>
+<p>Note that during normal navigation, i.e. when the user clicks a link, we can take advantage of the <code>form_properties</code> attribute to ensure we do not load unnecessary data.</p>
+<pre><code class="language-python">class RowTemplate(RowTemplateTemplate):
+    def __init__(self, **properties):
+        self.init_components(**properties)
+
+    def on_button_click(self, **event_args):
+        router.navigate(
+            path=&quot;/articles/:id&quot;,
+            params={&quot;id&quot;: self.item[&quot;id&quot;]},
+            form_properties={&quot;item&quot;: self.item}
+        )
+
+
+</code></pre>
+<p><strong>With a load_data method</strong></p>
+<pre><code class="language-python"># routes.py
+from routing.router import Route
+
+class ArticleRoute(Route):
+    path = &quot;/articles/:id&quot;
+    form = &quot;Pages.Article&quot;
+
+    def load_data(self, **loader_args):
+        row = loader_args.nav_context.get(&quot;row&quot;)
+        if row is None:
+            id = loader_args[&quot;path_params&quot;][&quot;id&quot;]
+            row = anvil.server.call(&quot;get_row&quot;, id)
+        return return row
+</code></pre>
+<pre><code class="language-python">from routing import router
+
+class ArticleForm(ArticleFormTemplate):
+    def __init__(self, routing_context: router.RoutingContext, **properties):
+        self.routing_context = routing_context
+        properties[&quot;item&quot;] = routing_context.data
+        self.init_components(**properties)
+
+</code></pre>
+<p>In the above example, the <code>load_data</code> is called whenever the user navigates. If a user navigates directly to the url <code>/articles/123</code>, the initial page request will come in, the load_data method will be called (on the server), and the user will be directed to the <code>ArticleForm</code> with the data already loaded. During normal navigation, i.e. when the user clicks a link, we can take advantage of the <code>nav_context</code> (or <code>form_properties</code>) attribute to ensure we do not make unnecessary server calls during client side navigation.</p>
+<pre><code class="language-python">
+class RowTemplate(RowTemplateTemplate):
+    def __init__(self, **properties):
+        self.init_components(**properties)
+
+    def on_button_click(self, **event_args):
+        router.navigate(
+            path=&quot;/articles/:id&quot;,
+            params={&quot;id&quot;: self.item[&quot;id&quot;]},
+            nav_context={&quot;row&quot;: self.item}
+        )
+
+</code></pre>
+<!-- ## Handling Errors
+
+If the load_data method raises an exception, the router will behave differently depending on the `cache_data` attribute on the route.
+
+Regardless of the `cache_data` attribute, if there is no data in the cache, and the load_data method raises an exception, the router will call `anvil.open_form` on the matching route's error form. If there is no error form, the router will raise the exception.
+
+If there is a cached form or cached data, then the router will load the form using the cache. If the load_data method raises an exception, the `router_context` will raise the `"data_loaded"` event with `data=None` and `error=<The Exception>`, as well as the `"data_error"` event. -->
+
+<h2 id="invalidating-data">Invalidating Data<a class="headerlink" href="#invalidating-data" title="Permanent link">&para;</a></h2>
+<p>See <a href="/caching#invalidating-cache">Invalidating Cache</a>.</p>
+<h2 id="pending-form">Pending Form<a class="headerlink" href="#pending-form" title="Permanent link">&para;</a></h2>
+<p>When data is loading for the first time, a user can provide a loading form. This form will be shown during while the data is loading.</p>
+<p>The pending form is determined by the <code>Route.pending_form</code> attribute. When the data is loading, the routing library will wait for the <code>pending_delay</code> seconds before showing the pending form. It will show the pending form for at least <code>pending_min</code> seconds.</p>
+<pre><code class="language-python">from routing.router import Route
+
+class ArticleRoute(Route):
+    path = &quot;/articles/:id&quot;
+    form = &quot;Pages.Article&quot;
+    pending_form = &quot;Pages.Loading&quot;
+    pending_delay = 1 # default is 1
+    pending_min = 0.5 # default is 0.5
+
+</code></pre>
+<p>A common implementation will be to create a pending form with the same layout as the form. Where the content would be, place a <code>Anvil.Spacer</code> component. Inside the <code>show</code> and <code>hide</code> event handlers, call the <code>anvil.server.loading_indicator.start</code> and <code>anvil.server.loading_indicator.stop</code> functions.</p>
+<pre><code class="language-python">
+from anvil.server import loading_indicator
+
+class LoadingForm(LoadingFormTemplate):
+    def __init__(self, **properties):
+        self.init_components(**properties)
+        self.loading_indicator = anvil.server.loading_indicator(self.spacer_1)
+
+    def show(self, **event_args):
+        self.loading_indicator.start()
+
+    def hide(self, **event_args):
+        self.loading_indicator.stop()
+
+</code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../quick-start/" class="btn btn-neutral float-left" title="Quick Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../migrating/" class="btn btn-neutral float-right" title="Index">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../caching/" class="btn btn-neutral float-left" title="Caching"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../migrating/" class="btn btn-neutral float-right" title="Migrating">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -140,7 +285,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../quick-start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../caching/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../migrating/" style="color: #fcfcfc">Next &raquo;</a></span>

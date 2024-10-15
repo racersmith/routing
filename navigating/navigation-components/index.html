@@ -13,7 +13,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "Navigation Components";
-        var mkdocs_page_input_path = "navigating/Navigation Components.md";
+        var mkdocs_page_input_path = "navigating/navigation-components.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -47,15 +47,13 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../../how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul class="current">
@@ -75,12 +73,14 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../blocking-navigation/">Blocking Navigation</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../routes/data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routes/forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../routes/params/">Params</a>
                   </li>
@@ -94,9 +94,24 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -133,7 +148,7 @@
 <p>Navigation Components by default are subclasses of the <code>Anvil.Link</code> component. But this can be customized. See <a href="/theme">Themes</a> for details.</p>
 <h2 id="navlink">NavLink<a class="headerlink" href="#navlink" title="Permanent link">&para;</a></h2>
 <p>The NavLink component is a link that you will likely use in your main layout's sidebar. The routing library will set the <code>active</code> property on the NavLink to <code>True</code> when the NavLink's properties match the current routing context.</p>
-<p>If you are using the default NavLink component, then <code>active</code> means it will set it's <code>role</code> property to <code>selected</code>. If the NavLink component is not the default, then how the <code>active</code> property behaves is determined by the Base class of the NavLink component.</p>
+<p>If you are using the default NavLink component, then <code>active</code> means it will set it's <code>role</code> property to <code>active</code>. If the NavLink component is not the default, then how the <code>active</code> property behaves is determined by the Base class of the NavLink component.</p>
 <h3 id="navigation-attributes">Navigation Attributes<a class="headerlink" href="#navigation-attributes" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>path</code></dt>
@@ -178,7 +193,7 @@
 </dd>
 <dt><code>exact_query</code></dt>
 <dd>
-<p>If <code>True</code> then the query must match exactly. By default this is <code>False</code>.</p>
+<p>If <code>True</code> then the query must inclusively match the current routing context's query. By default this is <code>False</code>.</p>
 </dd>
 <dt><code>exact_hash</code></dt>
 <dd>
@@ -193,7 +208,7 @@
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../" class="btn btn-neutral float-left" title="Navigation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../routes/" class="btn btn-neutral float-right" title="Route Class">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../blocking-navigation/" class="btn btn-neutral float-right" title="Blocking Navigation">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -219,7 +234,7 @@
       <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../routes/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../blocking-navigation/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

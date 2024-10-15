@@ -44,26 +44,6 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#initializing-the-router">Initializing the Router</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#defining-routes">Defining Routes</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#handling-routes">Handling Routes</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#route-class">Route Class</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#navigation">Navigation</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
-    </li>
     </ul>
                 </li>
               </ul>
@@ -71,28 +51,28 @@
                 <li class="toctree-l1"><a class="reference internal" href="quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="navigating/">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="navigating/Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="navigating/navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="navigating/blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="routes/data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="routes/forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="routes/params/">Params</a>
                   </li>
@@ -106,9 +86,24 @@
                   <li class="toctree-l1"><a class="reference internal" href="routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -138,60 +133,6 @@
 <p>This documentation provides an overview of the API for the routing library.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>You can use this library as a third party Anvil dependency with the code <code>ABC123</code>.</p>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<p>Clone the following Anvil app:
-https://anvil.works/app/ABC123</p>
-<p>Or create a new app from Anvil app</p>
-<p>The client code structure should look like this:</p>
-<pre><code>- Layouts (Package)
-    - Main (Form - ensure you tick &quot;Use as layout&quot;)
-- Pages (Package)
-    - Index (Form choosing Layouts.Main as the layout)
-    - About (Form choosing Layouts.Main as the layout)
-    - Contact (Form choosing Layouts.Main as the layout)
-- routes (Module)
-- startup (Module)
-</code></pre>
-<pre><code class="language-python"># startup.py
-from routing.router import launch
-from .import routes
-
-if __name__ == &quot;__main__&quot;:
-    launch()
-</code></pre>
-<pre><code class="language-python"># routes.py
-from routing.router import Route
-
-class IndexRoute(Route):
-    path = &quot;/&quot;
-    form = &quot;Pages.Index&quot;
-
-class AboutRoute(Route):
-    path = &quot;/about&quot;
-    form = &quot;Pages.About&quot;
-
-class ContactRoute(Route):
-    path = &quot;/contact&quot;
-    form = &quot;Pages.Contact&quot;
-</code></pre>
-<p>Inside your Server code, create a server module that imports the <code>routes</code> module.</p>
-<pre><code class="language-python"># ServerRoutes.py
-from . import routes
-</code></pre>
-<p>You should now be able to run the app and navigate to different pages by changing the URL in the browser.</p>
-<h3 id="initializing-the-router">Initializing the Router<a class="headerlink" href="#initializing-the-router" title="Permanent link">&para;</a></h3>
-<p>How to initialize the router.</p>
-<h3 id="defining-routes">Defining Routes<a class="headerlink" href="#defining-routes" title="Permanent link">&para;</a></h3>
-<p>How to define routes.</p>
-<h3 id="handling-routes">Handling Routes<a class="headerlink" href="#handling-routes" title="Permanent link">&para;</a></h3>
-<p>How to handle and process routes.</p>
-<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<h3 id="route-class">Route Class<a class="headerlink" href="#route-class" title="Permanent link">&para;</a></h3>
-<p>Details about the <code>Route</code> class and its methods, if applicable.</p>
-<h3 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">&para;</a></h3>
-<p>Details about navigating.</p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p>Some basic examples of how to use the routing library.</p>
               
             </div>
           </div><footer>
@@ -240,5 +181,5 @@ from . import routes
 
 <!--
 MkDocs version : 1.6.0
-Build Date UTC : 2024-08-27 02:28:18.662623+00:00
+Build Date UTC : 2024-10-15 05:01:04.952825+00:00
 -->

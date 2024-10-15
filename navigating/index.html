@@ -47,15 +47,13 @@
                 <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul class="current">
@@ -75,14 +73,16 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../routes/data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/params/">Params</a>
                   </li>
@@ -96,9 +96,24 @@
                   <li class="toctree-l1"><a class="reference internal" href="../routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -126,9 +141,17 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">&para;</a></h1>
-<p>There are two ways to navigate. The first is with the <code>navigate</code> and the second is with a <a href="/navigating/Navigation%20Components">navigation component</a>.</p>
+<p>There are two ways to navigate. The first is with the <code>navigate</code> function, and the second is with a <a href="/navigating/Navigation%20Components">navigation component</a>.</p>
 <h2 id="navigating-with-navigate">Navigating with <code>navigate</code><a class="headerlink" href="#navigating-with-navigate" title="Permanent link">&para;</a></h2>
 <p>The <code>navigate</code> function is a function that you will likely call from a click handler.</p>
+<pre><code class="language-python">
+from routing.router import navigate
+
+class Form(FormTemplate):
+    def nav_button_click(self, **event_args):
+        navigate(path=&quot;/articles/:id&quot;, params={&quot;id&quot;: 123})
+
+</code></pre>
 <h3 id="call-signatures">Call Signatures<a class="headerlink" href="#call-signatures" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>navigate(*, path=None, params=None, query=None, hash=None, replace=False, nav_context=None, form_properties=None)</code>
@@ -226,8 +249,8 @@ class FooForm(FooFormTemplate):
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../migrating/" class="btn btn-neutral float-left" title="Index"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="Navigation%20Components/" class="btn btn-neutral float-right" title="Navigation Components">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../api-reference/" class="btn btn-neutral float-left" title="Api Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="navigation-components/" class="btn btn-neutral float-right" title="Navigation Components">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -250,10 +273,10 @@ class FooForm(FooFormTemplate):
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../migrating/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../api-reference/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="Navigation%20Components/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="navigation-components/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

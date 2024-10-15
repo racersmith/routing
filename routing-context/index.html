@@ -47,28 +47,28 @@
                 <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../navigating/">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../navigating/Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../routes/data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../routes/forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../routes/params/">Params</a>
                   </li>
@@ -85,12 +85,29 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#events">Events</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a>
+    </li>
     </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Migrating</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -153,7 +170,7 @@ class IndexTemplate(IndexTemplate):
 </dd>
 <dt><code>deps</code></dt>
 <dd>
-<p>The dependencies <code>dict</code> returned by the <code>loader_deps</code> method.</p>
+<p>The dependencies <code>dict</code> returned by the <code>cache_deps</code> method.</p>
 </dd>
 <dt><code>nav_context</code></dt>
 <dd>
@@ -165,11 +182,11 @@ class IndexTemplate(IndexTemplate):
 </dd>
 <dt><code>error</code></dt>
 <dd>
-<p>The error that occurred when loading the data, or the current route. This is particularly useful when displaying error messages in your error form.</p>
+<p>The error that occurred when loading the form or loading the data. This is particularly useful when displaying error messages in your error form.</p>
 </dd>
 <dt><code>data</code></dt>
 <dd>
-<p>The data for the current route. This is the value returned from the <code>loader</code> method.</p>
+<p>The data for the current route. This is the value returned from the <code>load_data</code> method.</p>
 </dd>
 </dl>
 <!-- `match`
@@ -195,7 +212,7 @@ class IndexTemplate(IndexTemplate):
 </dd>
 <dt><code>data_loaded</code></dt>
 <dd>
-<p>Emitted when the data has been loaded.</p>
+<p>Emitted when the data has been loaded, or when the data has an error. To determine if the data is loaded successfully, check the <code>error</code> property is <code>None</code>.</p>
 </dd>
 <dt><code>data_error</code></dt>
 <dd>
@@ -210,12 +227,28 @@ class IndexTemplate(IndexTemplate):
 <p>Emitted when the hash changes.</p>
 </dd>
 </dl>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><code>invalidate(exact=False)</code></dt>
+<dd>
+<p>Invalidates any cached data or forms for this routing context. If <code>exact</code> is <code>True</code>, then the path and deps must match exactly. By default this is <code>False</code>. If <code>False</code> then any path or deps that are a subset of path and deps arguments will be invalidated.</p>
+</dd>
+<dt><code>refetch()</code></dt>
+<dd>
+<p>Invalidates the data for this routing context (with exact=True) and then loads the data again.</p>
+</dd>
+<dt><code>raise_init_events()</code></dt>
+<dd>
+<p>Raises the <code>data_loaded</code>, <code>data_loading</code>, <code>data_error</code>, <code>query_changed</code> and <code>hash_changed</code> events.
+This event is useful during instantiation of the form. First setup your event handlers, then call <code>raise_init_events()</code>.</p>
+</dd>
+</dl>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../routes/redirecting/" class="btn btn-neutral float-left" title="Redirecting"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../theme/" class="btn btn-neutral float-right" title="Index">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../caching/" class="btn btn-neutral float-right" title="Caching">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -241,7 +274,7 @@ class IndexTemplate(IndexTemplate):
       <span><a href="../routes/redirecting/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../theme/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../caching/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

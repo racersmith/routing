@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Redirecting - Routing Docs</title>
+    <title>Blocking Navigation - Routing Docs</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Redirecting";
-        var mkdocs_page_input_path = "routes/redirecting.md";
+        var mkdocs_page_name = "Blocking Navigation";
+        var mkdocs_page_input_path = "navigating/blocking-navigation.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -56,27 +56,27 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/">Navigation</a>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/navigation-components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigation-components/">Navigation Components</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../navigating/blocking-navigation/">Blocking Navigation</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Blocking Navigation</a>
+    <ul class="current">
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../">Route Class</a>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routes/">Route Class</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../forms/">Forms</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routes/forms/">Forms</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../params/">Params</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routes/params/">Params</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../query/">Query</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routes/query/">Query</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Redirecting</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../routes/redirecting/">Redirecting</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routing context</span></p>
@@ -118,8 +118,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Routes</li>
-      <li class="breadcrumb-item active">Redirecting</li>
+          <li class="breadcrumb-item">Navigating</li>
+      <li class="breadcrumb-item active">Blocking Navigation</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -128,53 +128,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="redirecting">Redirecting<a class="headerlink" href="#redirecting" title="Permanent link">&para;</a></h2>
-<p>You can redirect to a different route by raising a <code>Redirect</code> exception in a route's <code>before_load</code> method.</p>
-<pre><code class="language-python">from routing.router import Route, Redirect
+                <h1 id="blocking-navigation">Blocking Navigation<a class="headerlink" href="#blocking-navigation" title="Permanent link">&para;</a></h1>
+<p>You may want to prevent the user from navigating away from a page, if say, they are editing a form.</p>
+<pre><code class="language-python">
+from routing.router import RoutingContext, navigate
 
-class IndexRoute(Route):
-    path = &quot;/&quot;
+class EditForm(EditFormTemplate):
+    def __init__(self, routing_context: RoutingContext, **properties):
+        self.routing_context = routing_context
+        self.routing_context.register_blocker(self.prevent_navigation)
+        self.init_components(**properties)
 
-    def before_load(self, **loader_args):
-        raise Redirect(path=&quot;/dashboard&quot;)
-</code></pre>
-<p>In the above example, the user will be redirected to the <code>/dashboard</code> route when they navigate to your app.</p>
-<p>A common use case for redirecting is to ensure that a user is logged in before navigating to a route.</p>
-<pre><code class="language-python">from routing.router import Route, Redirect
-import anvil.users
+    def prevent_navigation(self, **event_args):
+        c = confirm(&quot;Are you sure you want to leave this page? Your changes will be lost.&quot;)
+        return not c
 
-class IndexRoute(Route):
-    path = &quot;/&quot;
+    def save_button_click(self, **event_args):
+        self.routing_context.unregister_blocker(self.prevent_navigation)
+        navigate(path=&quot;/dashboard&quot;)
 
-    def before_load(self, **loader_args):
-        if anvil.users.get_user():
-            raise Redirect(path=&quot;/dashboard&quot;)
-        else:
-            raise Redirect(path=&quot;/login&quot;)
-
-class EnsureUserMixin:
-    def before_load(self, **loader_args):
-        if not anvil.users.get_user():
-            # Note this will make a server call
-            # so you may want to cache the call to anvil.users.get_user()
-            raise Redirect(path=&quot;/login&quot;)
-
-class DashboardRoute(EnsureUserMixin, Route):
-    path = &quot;/dashboard&quot;
-    form = &quot;Pages.Dashboard&quot;
 
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A determined user will be able to bypass the redirect by opening the form directly.
-Always ensure you check the user is logged in on the server before sending sensitive data to the client.</p>
+<p>When you register a blocker, if a user navigates to another website, the browser dialog asking if they want to leave the current page will be shown.</p>
 </div>
+<p>Alternatively, you can use the <code>NavigationBlocker</code> context manager.</p>
+<pre><code class="language-python">from routing.router import NavigationBlocker
+
+class Form(FormTemplate):
+    def __init__(self, **properties):
+        self.init_components(**properties)
+
+    def run_important_alert(self, **event_args):
+        with NavigationBlocker(warn_before_unload=True):
+            alert(&quot;Important Alert&quot;, dismissible=False)
+</code></pre>
+<p>The above navigation blocker will prevent the user navigating away from the page while the alert is open.
+<code>warn_before_unload</code> will show the browser dialog asking if the user wants to leave the page, if the user navigates to a new website. By default this is <code>False</code>.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../query/" class="btn btn-neutral float-left" title="Query"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../routing-context/" class="btn btn-neutral float-right" title="Routing Context">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../navigation-components/" class="btn btn-neutral float-left" title="Navigation Components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../routes/" class="btn btn-neutral float-right" title="Route Class">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -197,10 +194,10 @@ Always ensure you check the user is logged in on the server before sending sensi
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../query/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../navigation-components/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../routing-context/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../routes/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

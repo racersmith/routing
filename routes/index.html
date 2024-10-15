@@ -47,32 +47,38 @@
                 <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                </li>
               </ul>
-              <p class="caption"><span class="caption-text">Migrating</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Index</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../navigating/">Navigation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../navigating/Navigation%20Components/">Navigation Components</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/navigation-components/">Navigation Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../navigating/blocking-navigation/">Blocking Navigation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Routes</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Route Class</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#form-instantiation">Form instantiation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#route-attributes">Route Attributes</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#caching-forms">Caching Forms</a>
+    <li class="toctree-l2"><a class="reference internal" href="#route-methods">Route Methods</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#not-found-form">Not Found Form</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#not-found-route">Not Found Route</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#raising-a-notfound-exception">Raising a NotFound Exception</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#error-form">Error Form</a>
     </li>
@@ -82,7 +88,7 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="data/">Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="forms/">Forms</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="params/">Params</a>
                   </li>
@@ -96,9 +102,24 @@
                   <li class="toctree-l1"><a class="reference internal" href="../routing-context/">Routing Context</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Caching</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../caching/">Caching</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Data loading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Migrating</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../migrating/">Migrating</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Theme</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Index</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Theme</a>
                   </li>
               </ul>
       </div>
@@ -150,47 +171,83 @@ IndexRoute = Route.create(path=&quot;/&quot;, form=&quot;Pages.Index&quot;)
 AboutRoute = Route.create(path=&quot;/about&quot;, form=&quot;Pages.About&quot;)
 ContactRoute = Route.create(path=&quot;/contact&quot;, form=&quot;Pages.Contact&quot;)
 </code></pre>
-<h2 id="form-instantiation">Form instantiation<a class="headerlink" href="#form-instantiation" title="Permanent link">&para;</a></h2>
-<p>When a form is instantiated, the router will pass a <code>routing_context</code> property to the form. This property holds information about the current route and the current navigation context.</p>
-<pre><code class="language-python">from ._anvil_designer import IndexTemplate
+<h2 id="route-attributes">Route Attributes<a class="headerlink" href="#route-attributes" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><code>path</code></dt>
+<dd>The path to navigate to. e.g. <code>/</code>, <code>/articles</code> or <code>/articles/:id</code>.</dd>
+<dt><code>form</code></dt>
+<dd>The form to open when the route is matched. e.g. <code>Pages.Index</code>.</dd>
+<dt><code>error_form (optional)</code></dt>
+<dd>The form to open when an error occurs. e.g. <code>Pages.Error</code>.</dd>
+<dt><code>not_found_form (optional)</code></dt>
+<dd>The form to open when the route is not found. e.g. <code>Pages.NotFound</code>.</dd>
+<dt><code>pending_form (optional)</code></dt>
+<dd>The form to open when the data is loading. e.g. <code>Pages.Loading</code>.</dd>
+<dt><code>pending_delay=1</code></dt>
+<dd>The delay before showing the pending form when the data is loading.</dd>
+<dt><code>pending_min=0.5</code></dt>
+<dd>The minimum time to show the pending form when the data is loading.</dd>
+<dt><code>cache_data=False</code></dt>
+<dd>Whether to cache data. By default this is <code>False</code>.</dd>
+<dt><code>gc_time=30*60</code></dt>
+<dd>The time in seconds that determines when data is released from the cache for garbage collection. By default this is 30 minutes. When data is released from the cache, any cached forms with the same <code>path</code> and <code>cache_deps</code> will also be released.</dd>
+</dl>
+<!-- `stale_time=0`
+: The time in seconds that determines when the data is stale. By default this is 0, i.e. the data is always considered stale when navigating to the route. This is only relevant when `cache_data` is set to `STALE_WHILE_REVALIDATE`. -->
 
-from routing.router import RoutingContext
-
-class IndexTemplate(IndexTemplate):
-    def __init__(self, routing_context: RoutingContext, **properties):
-        self.routing_context = routing_context
-        self.init_components(**properties)
-
-</code></pre>
-<p>Adding the <code>RoutingContext</code> type definition will allow anvil to show autocompletion for the <code>routing_context</code> property.</p>
-<h2 id="caching-forms">Caching Forms<a class="headerlink" href="#caching-forms" title="Permanent link">&para;</a></h2>
-<p>By default, the <code>open_form</code> will NOT cache the form. This means a new instance of the form will be created every time the user navigates to the route. If you want to cache the form, you can set the <code>cache_form</code> attribute to <code>True</code> on the route.</p>
-<p>You can set this attribute on specific routes.</p>
-<pre><code class="language-python">class IndexRoute(Route):
-    path = &quot;/&quot;
-    form = &quot;Pages.Index&quot;
-    cache_form = True
-</code></pre>
-<p>Or you can set this attribute for all routes by setting the <code>cache_form</code> attribute on the <code>Route</code> class.</p>
+<dl>
+<dt><code>server_fn (optional str)</code></dt>
+<dd>The server function to call when the route is matched. e.g. <code>"get_article"</code>. This server function will be called with the same keyword arguments as the route's <code>load_data</code> method. Note this is optional and equivalent to defining a <code>load_data</code> method the calls the same server function.</dd>
+<dt><code>server_silent=False</code></dt>
+<dd>If <code>True</code> then the server function will be called using <code>anvil.server.call_s</code>. By default this is <code>False</code>.</dd>
+</dl>
+<h2 id="route-methods">Route Methods<a class="headerlink" href="#route-methods" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><code>before_load</code></dt>
+<dd>Called before the route is matched. This method can raise a <code>Redirect</code> exception to redirect to a different route. By default this returns <code>None</code>.</dd>
+<dt><code>parse_query</code></dt>
+<dd>should return a dictionary of query parameters. By default this returns the original query parameters.</dd>
+<dt><code>parse_params</code></dt>
+<dd>should return a dictionary of path parameters. By default this returns the original path parameters.</dd>
+<dt><code>meta</code></dt>
+<dd>should return a dictionary with the <code>title</code> and <code>description</code> of the page. This will be used to update the meta tags and the title of the page. By default this returns the original title and description.</dd>
+<dt><code>load_data</code></dt>
+<dd>Called when the route is matched. The return value will be available in the <code>data</code> property of the <code>RoutingContext</code> instance. By default this returns <code>None</code>.</dd>
+<dt><code>load_form</code></dt>
+<dd>This method is called with two arguments. The first argument is a form name (e.g. <code>"Pages.Index"</code>) or, if you are using cached forms, the cached form instance. The second argument is the <code>RoutingContext</code> instance. By default this calls <code>anvil.open_form</code> on the form.</dd>
+<dt><code>cache_deps</code></dt>
+<dd>Caching is determined by the <code>path</code> and the return value of the <code>cache_deps</code> method. The default implementation returns the <code>query</code> dictionary. That is, a route with the same <code>path</code> and <code>query</code> will be considered to be the same route. And routes with different <code>query</code> will be considered to be different routes.</dd>
+</dl>
+<h2 id="not-found-form">Not Found Form<a class="headerlink" href="#not-found-form" title="Permanent link">&para;</a></h2>
+<p>There are two ways a route can be not found. The first is when the user navigates to a path that does not match any routes. The second is when a user raises a <code>NotFound</code> exception in a route's <code>before_load</code> or <code>load_data</code> method.</p>
+<h3 id="not-found-route">Not Found Route<a class="headerlink" href="#not-found-route" title="Permanent link">&para;</a></h3>
+<p>By definition, if there is not matching route, the router has no route to navigate to. If you want to handle this case, you can define a not found route.</p>
 <pre><code class="language-python">from routing.router import Route
 
-# override the default behavior for all routes
-Route.cache_form = True
-
-class IndexRoute(Route):
-    path = &quot;/&quot;
-    form = &quot;Pages.Index&quot;
+class NotFoundRoute(Route):
+    form = &quot;Pages.NotFound&quot;
+    default_not_found = True
 </code></pre>
-<h2 id="not-found-form">Not Found Form<a class="headerlink" href="#not-found-form" title="Permanent link">&para;</a></h2>
-<p>If a route is not found, the router will call <code>anvil.open_form</code> on the matching route's not found form.</p>
-<p>If no not found form is defined, the router will raise a <code>NotFound</code> exception, which will be caught by Anvil's exception handler.</p>
-<pre><code class="language-python">
-from routing.router import Route
+<p>The <code>NotFoundRoute</code> will be used when the user navigates to a path that does not match any routes. The <code>path</code> attribute should not be set, since this will be determined based on the path the user navigates to.</p>
+<p>If no <code>default_not_found</code> attribute is set, then the router will raise a <code>NotFound</code> exception, which will be caught by Anvil's exception handler.</p>
+<h3 id="raising-a-notfound-exception">Raising a NotFound Exception<a class="headerlink" href="#raising-a-notfound-exception" title="Permanent link">&para;</a></h3>
+<p>If you raise a <code>NotFound</code> exception in a route's <code>before_load</code> or <code>load_data</code> method, the router will call the route's <code>load_form</code> method with the route's not found form.</p>
+<pre><code class="language-python">from routing.router import Route
 
-# you probably want to define a default not found form
-Route.not_found_form = &quot;Pages.NotFound&quot;
+class ArticleRoute(Route):
+    path = &quot;/articles/:id&quot;
+    form = &quot;Pages.Article&quot;
+    not_found_form = &quot;Pages.ArticleNotFound&quot;
+
+    def load_data(self, **loader_args):
+        id = loader_args[&quot;params&quot;][&quot;id&quot;]
+        article = app_tables.articles.get(id=id)
+        if article is None:
+            raise NotFound(f&quot;No article with id {id}&quot;)
+        return article
 
 </code></pre>
+<p>If a route raises a <code>NotFound</code> exception and there is no <code>not_found_form</code> attribute, the router will raise the exception, which will be caught by Anvil's exception handler.</p>
 <h2 id="error-form">Error Form<a class="headerlink" href="#error-form" title="Permanent link">&para;</a></h2>
 <p>When a route throws an exception, the router will call <code>anvil.open_form</code> on the matching route's error form.</p>
 <p>If no error form is defined, the error will be caught by Anvil's exception handler.</p>
@@ -205,6 +262,22 @@ class IndexRoute(Route):
     path = &quot;/&quot;
     form = &quot;Pages.Index&quot;
     error_form = &quot;Pages.Error&quot;
+
+</code></pre>
+<pre><code class="language-python"># Pages.Error
+import anvil
+
+class Error(ErrorTemplate):
+    def __init__(self, routing_context: RoutingContext, **properties):
+        self.init_components(**properties)
+        self.routing_context = routing_context
+        self.label.text = (
+            f&quot;Error when navigating to {routing_context.path!r}, got {routing_context.error!r}&quot;
+        )
+
+    def form_show(self, **event_args):
+        if anvil.app.environment.name.startswith(&quot;Debug&quot;):
+            raise self.routing_context.error
 
 </code></pre>
 <h2 id="ordering-routes">Ordering Routes<a class="headerlink" href="#ordering-routes" title="Permanent link">&para;</a></h2>
@@ -226,7 +299,7 @@ class AuthorRoute(Route):
 </code></pre>
 <p>In the above example, it's important that the <code>NewAuthorRoute</code> comes before the <code>AuthorRoute</code> in the list of routes. This is because <code>/authors/new</code> is a valid path for the <code>AuthorRoute</code>, so the router would successfully match the route and open the form.</p>
 <h2 id="server-routes">Server Routes<a class="headerlink" href="#server-routes" title="Permanent link">&para;</a></h2>
-<p>When a user navigates to a url directly, the router will match routes on the server. </p>
+<p>When a user navigates to a url directly, the router will match routes on the server.</p>
 <p>When you import your routes in server code, the router will automatically create a server route for each route.</p>
 <pre><code class="language-python"># ServerRoutes.py
 from . import routes
@@ -250,8 +323,8 @@ for route in Routes.__subclasses__():
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../navigating/Navigation%20Components/" class="btn btn-neutral float-left" title="Navigation Components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="data/" class="btn btn-neutral float-right" title="Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../navigating/blocking-navigation/" class="btn btn-neutral float-left" title="Blocking Navigation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="forms/" class="btn btn-neutral float-right" title="Forms">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -274,10 +347,10 @@ for route in Routes.__subclasses__():
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../navigating/Navigation%20Components/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../navigating/blocking-navigation/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="data/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="forms/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
