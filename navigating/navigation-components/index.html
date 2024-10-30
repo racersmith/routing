@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -139,42 +139,30 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="navigation-components">Navigation Components<a class="headerlink" href="#navigation-components" title="Permanent link">&para;</a></h1>
-<p>A Navigation Component is useful over a Button with a click handler because it supports <code>ctr/cmd</code> clicking a route to open in a new tab, and should provide the correct href value for the browser.</p>
+<p>A Navigation Component is useful over a Button with a click handler because it supports <code>Ctrl/Cmd</code> clicking a route to open in a new tab and should provide the correct href value for the browser.</p>
 <p>The routing library provides two Navigation Components:</p>
 <ul>
 <li><a href="#navlink">NavLink</a></li>
 <li><a href="#anchor">Anchor</a></li>
 </ul>
-<p>Navigation Components by default are subclasses of the <code>Anvil.Link</code> component. But this can be customized. See <a href="/theme">Themes</a> for details.</p>
+<p>Navigation Components by default are subclasses of the <code>Anvil.Link</code> component. However, this can be customised. See <a href="/theme">Themes</a> for details.</p>
 <h2 id="navlink">NavLink<a class="headerlink" href="#navlink" title="Permanent link">&para;</a></h2>
 <p>The NavLink component is a link that you will likely use in your main layout's sidebar. The routing library will set the <code>active</code> property on the NavLink to <code>True</code> when the NavLink's properties match the current routing context.</p>
-<p>If you are using the default NavLink component, then <code>active</code> means it will set it's <code>role</code> property to <code>active</code>. If the NavLink component is not the default, then how the <code>active</code> property behaves is determined by the Base class of the NavLink component.</p>
+<p>If you are using the default NavLink component, then <code>active</code> means it will set its <code>role</code> property to <code>active</code>. If the NavLink component is not the default, then how the <code>active</code> property behaves is determined by the Base class of the NavLink component.</p>
 <h3 id="navigation-attributes">Navigation Attributes<a class="headerlink" href="#navigation-attributes" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>path</code></dt>
-<dd>
-<p>The path to navigate to. e.g. <code>/articles/123</code> or <code>/articles</code> or <code>/articles/:id</code>. The path can be relative <code>./</code>. If not set then the path will be the current path.</p>
-</dd>
+<dd>The path to navigate to. e.g. <code>/articles/123</code> or <code>/articles</code> or <code>/articles/:id</code>. The path can be relative <code>./</code>. If not set, then the path will be the current path.</dd>
 <dt><code>params</code></dt>
-<dd>
-<p>The params for the path. e.g. <code>{"id": 123}</code></p>
-</dd>
+<dd>The params for the path. e.g. <code>{"id": 123}</code></dd>
 <dt><code>query</code></dt>
-<dd>
-<p>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code></p>
-</dd>
+<dd>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code></dd>
 <dt><code>form_properties</code></dt>
-<dd>
-<p>The form properties to pass to the form when it is opened.</p>
-</dd>
+<dd>The form properties to pass to the form when it is opened.</dd>
 <dt><code>nav_context</code></dt>
-<dd>
-<p>The nav context to for this navigation.</p>
-</dd>
+<dd>The nav context for this navigation.</dd>
 <dt><code>hash</code></dt>
-<dd>
-<p>The hash to navigate to.</p>
-</dd>
+<dd>The hash to navigate to.</dd>
 </dl>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -184,25 +172,17 @@
 <h3 id="active-state">Active State<a class="headerlink" href="#active-state" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>active</code></dt>
-<dd>
-<p>The active state of the NavLink. You probably don't want to set this. The routing library will set it to <code>True</code> when the NavLink's properties match the current routing context.</p>
-</dd>
+<dd>The active state of the NavLink. You probably don't want to set this. The routing library will set it to <code>True</code> when the NavLink's properties match the current routing context.</dd>
 <dt><code>exact_path</code></dt>
-<dd>
-<p>If <code>True</code> then the path must match exactly. By default this is <code>False</code>. Which means a NavLink with a path of <code>/articles</code> will match the path <code>/articles</code>, <code>/articles/123</code> and <code>/articles/123/456</code>.</p>
-</dd>
+<dd>If <code>True</code>, then the path must match exactly. By default, this is <code>False</code>. This means a NavLink with a path of <code>/articles</code> will match the path <code>/articles</code>, <code>/articles/123</code> and <code>/articles/123/456</code>.</dd>
 <dt><code>exact_query</code></dt>
-<dd>
-<p>If <code>True</code> then the query must inclusively match the current routing context's query. By default this is <code>False</code>.</p>
-</dd>
+<dd>If <code>True</code>, then the query must inclusively match the current routing context's query. By default, this is <code>False</code>.</dd>
 <dt><code>exact_hash</code></dt>
-<dd>
-<p>If <code>True</code> then the hash must match exactly. By default this is <code>False</code>.</p>
-</dd>
+<dd>If <code>True</code>, then the hash must match exactly. By default, this is <code>False</code>.</dd>
 </dl>
 <p>You can set most properties in code or in the designer. In the designer, it is recommended to set <code>query</code> properties by using data bindings.</p>
 <h2 id="anchor">Anchor<a class="headerlink" href="#anchor" title="Permanent link">&para;</a></h2>
-<p>Anchor is a link that you can use inline, or use as a container for other components. Unlike the NavLink, the Anchor component has no <code>active</code> property.</p>
+<p>Anchor is a link that you can use inline or as a container for other components. Unlike the NavLink, the Anchor component has no <code>active</code> property.</p>
               
             </div>
           </div><footer>

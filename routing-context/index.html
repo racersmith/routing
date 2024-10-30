@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -144,50 +144,31 @@ class IndexTemplate(IndexTemplate):
     def __init__(self, routing_context: RoutingContext, **properties):
         self.routing_context = routing_context
         self.init_components(**properties)
-
 </code></pre>
 <div class="admonition autocompletion">
 <p class="admonition-title">Autocompletion</p>
-<p>Adding the <code>RoutingContext</code> type definition will allow anvil to show autocompletion for the <code>routing_context</code> property.</p>
+<p>Adding the <code>RoutingContext</code> type definition will allow Anvil to show autocompletion for the <code>routing_context</code> property.</p>
 </div>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <dl>
 <dt><code>path</code></dt>
-<dd>
-<p>The path for the current route.</p>
-</dd>
+<dd>The path for the current route.</dd>
 <dt><code>params</code></dt>
-<dd>
-<p>The parameters for the current route.</p>
-</dd>
+<dd>The parameters for the current route.</dd>
 <dt><code>query</code></dt>
-<dd>
-<p>The query parameters for the current route.</p>
-</dd>
+<dd>The query parameters for the current route.</dd>
 <dt><code>hash</code></dt>
-<dd>
-<p>The hash for the current route.</p>
-</dd>
+<dd>The hash for the current route.</dd>
 <dt><code>deps</code></dt>
-<dd>
-<p>The dependencies <code>dict</code> returned by the <code>cache_deps</code> method.</p>
-</dd>
+<dd>The dependencies <code>dict</code> returned by the <code>cache_deps</code> method.</dd>
 <dt><code>nav_context</code></dt>
-<dd>
-<p>The navigation context for the current route. This is a <code>dict</code> and can be set by passing a <code>nav_context</code> argument to the <code>navigate</code> method. (Or equivalently by setting the <code>nav_context</code> attribute on a <code>NavLink</code>/<code>Anchor</code> component).</p>
-</dd>
+<dd>The navigation context for the current route. This is a <code>dict</code> and can be set by passing a <code>nav_context</code> argument to the <code>navigate</code> method. (Or equivalently by setting the <code>nav_context</code> attribute on a <code>NavLink</code>/<code>Anchor</code> component).</dd>
 <dt><code>form_properties</code></dt>
-<dd>
-<p>The form properties for the current route. This is a <code>dict</code> and can be set by passing a <code>form_properties</code> argument to the <code>navigate</code> method. (Or equivalently by setting the <code>form_properties</code> attribute on the <code>NavLink</code>/<code>Anchor</code> component). Note the <code>form_properties</code> are passed as keyword arguments when instantiating a form. For more details see the Navigation section.</p>
-</dd>
+<dd>The form properties for the current route. This is a <code>dict</code> and can be set by passing a <code>form_properties</code> argument to the <code>navigate</code> method. (Or equivalently by setting the <code>form_properties</code> attribute on the <code>NavLink</code>/<code>Anchor</code> component). Note the <code>form_properties</code> are passed as keyword arguments when instantiating a form. For more details see the Navigation section.</dd>
 <dt><code>error</code></dt>
-<dd>
-<p>The error that occurred when loading the form or loading the data. This is particularly useful when displaying error messages in your error form.</p>
-</dd>
+<dd>The error that occurred when loading the form or loading the data. This is particularly useful when displaying error messages in your error form.</dd>
 <dt><code>data</code></dt>
-<dd>
-<p>The data for the current route. This is the value returned from the <code>load_data</code> method.</p>
-</dd>
+<dd>The data for the current route. This is the value returned from the <code>load_data</code> method.</dd>
 </dl>
 <!-- `match`
 
@@ -202,46 +183,28 @@ class IndexTemplate(IndexTemplate):
 : The `Route` instance for the current route. -->
 
 <h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h2>
-<!-- TODO determine if we should raise these events after form show e.g. should the query change event be fired after the form is shown -->
-
 <p>The <code>RoutingContext</code> instance will emit events when the route changes.</p>
 <dl>
 <dt><code>data_loading</code></dt>
-<dd>
-<p>Emitted when the data is loading.</p>
-</dd>
+<dd>Emitted when the data is loading.</dd>
 <dt><code>data_loaded</code></dt>
-<dd>
-<p>Emitted when the data has been loaded, or when the data has an error. To determine if the data is loaded successfully, check the <code>error</code> property is <code>None</code>.</p>
-</dd>
+<dd>Emitted when the data has been loaded, or when the data has an error. To determine if the data is loaded successfully, check the <code>error</code> property is <code>None</code>.</dd>
 <dt><code>data_error</code></dt>
-<dd>
-<p>Emitted when the data has an error.</p>
-</dd>
+<dd>Emitted when the data has an error.</dd>
 <dt><code>query_changed</code></dt>
-<dd>
-<p>Emitted when the query parameters change.</p>
-</dd>
+<dd>Emitted when the query parameters change.</dd>
 <dt><code>hash_changed</code></dt>
-<dd>
-<p>Emitted when the hash changes.</p>
-</dd>
+<dd>Emitted when the hash changes.</dd>
 </dl>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <dl>
 <dt><code>invalidate(exact=False)</code></dt>
-<dd>
-<p>Invalidates any cached data or forms for this routing context. If <code>exact</code> is <code>True</code>, then the path and deps must match exactly. By default this is <code>False</code>. If <code>False</code> then any path or deps that are a subset of path and deps arguments will be invalidated.</p>
-</dd>
+<dd>Invalidates any cached data or forms for this routing context. If <code>exact</code> is <code>True</code>, then the path and deps must match exactly. By default this is <code>False</code>. If <code>False</code> then any path or deps that are a subset of path and deps arguments will be invalidated.</dd>
 <dt><code>refetch()</code></dt>
-<dd>
-<p>Invalidates the data for this routing context (with exact=True) and then loads the data again.</p>
-</dd>
+<dd>Invalidates the data for this routing context (with exact=True) and then loads the data again.</dd>
 <dt><code>raise_init_events()</code></dt>
-<dd>
-<p>Raises the <code>data_loaded</code>, <code>data_loading</code>, <code>data_error</code>, <code>query_changed</code> and <code>hash_changed</code> events.
-This event is useful during instantiation of the form. First setup your event handlers, then call <code>raise_init_events()</code>.</p>
-</dd>
+<dd>Raises the <code>data_loaded</code>, <code>data_loading</code>, <code>data_error</code>, <code>query_changed</code> and <code>hash_changed</code> events.
+This method is useful during instantiation of the form. First set up your event handlers, then call <code>raise_init_events()</code>.</dd>
 </dl>
               
             </div>

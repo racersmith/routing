@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -131,10 +131,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h1>
-<p>If you are writing a custom theme for your anvil app, you may want to use your own components for the <code>NavLink</code> and <code>Anchor</code> base classes.</p>
-<p>The default implementation for the <code>NavLink</code> and <code>Anchor</code> base classes are:</p>
-<pre><code class="language-python">
-import anvil
+<p>If you are writing a custom theme for your Anvil app, you may want to use your own components for the <code>NavLink</code> and <code>Anchor</code> base classes.</p>
+<p>The default implementation for the <code>NavLink</code> and <code>Anchor</code> base classes are similar to the following:</p>
+<pre><code class="language-python">import anvil
 
 class NavLinkBase(anvil.Link):
     def __init__(self, active=None, **properties):
@@ -148,23 +147,20 @@ class NavLinkBase(anvil.Link):
     @active.setter
     def active(self, value):
         self._props[&quot;active&quot;] = value
-        self.role = &quot;active&quot; if value else None
+        self.role = &quot;selected&quot; if value else None
 
 
 class AnchorBase(anvil.Link):
     pass
-
 </code></pre>
 <p><strong>TODO - not yet supported APIs</strong></p>
-<p>To tell the routing library to use your own base classes, you can call the anvil's <code>set_config</code> method in the preload module.</p>
-<pre><code class="language-python">
-# preload module
+<p>To tell the routing library to use your own base classes, you can call Anvil's <code>set_config</code> method in the preload module.</p>
+<pre><code class="language-python"># preload module
 
 from anvil import set_config
 from ...MyNavLink import MyNavLink
 from ...MyAnchor import MyAnchor
 set_config(nav_link=MyNavLink, anchor=MyAnchor)
-
 </code></pre>
 <h2 id="existing-themes">Existing Themes<a class="headerlink" href="#existing-themes" title="Permanent link">&para;</a></h2>
 <ul>

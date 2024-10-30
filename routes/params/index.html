@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -147,7 +147,7 @@ class Author(AuthorTemplate):
         self.init_components(**properties)
 </code></pre>
 <h2 id="parsing-params">Parsing Params<a class="headerlink" href="#parsing-params" title="Permanent link">&para;</a></h2>
-<p>By default, the params are considered json-able. e.g. if the path is <code>"/articles/123"</code> then the <code>123</code> is an integer after calling <code>json.loads</code>. If you want to parse the params into a different type, you can use the <code>parse_params</code> method.</p>
+<p>By default, the params are considered JSON-able. e.g. if the path is <code>"/articles/123"</code> then the <code>123</code> is an integer after calling <code>json.loads</code>. If you want to parse the params into a different type, you can use the <code>parse_params</code> method.</p>
 <pre><code class="language-python">class AuthorRoute(Route):
     path = &quot;/authors/:id&quot;
     form = &quot;Pages.Author&quot;
@@ -166,11 +166,9 @@ class Author(AuthorTemplate):
 ...
     def button_click(self, **event_args):
         navigate(path=&quot;/authors/:id&quot;, params={&quot;id&quot;: 123})
-
 </code></pre>
 <p>Or equivalently with routing <code>NavLink</code> or <code>Anchor</code> components.</p>
-<pre><code class="language-python">
-from ._anvil_designer import RowTemplateTemplate
+<pre><code class="language-python">from ._anvil_designer import RowTemplateTemplate
 from routing.router import NavLink
 
 class RowTemplate(RowTemplateTemplate):
@@ -184,7 +182,6 @@ class RowTemplate(RowTemplateTemplate):
                 params={&quot;id&quot;: self.item[&quot;id&quot;]},
             )
         )
-
 </code></pre>
 <p><strong>Other equivalent ways to navigate include:</strong></p>
 <pre><code class="language-python">from routing.router import navigate

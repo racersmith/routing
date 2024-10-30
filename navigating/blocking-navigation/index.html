@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -129,9 +129,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="blocking-navigation">Blocking Navigation<a class="headerlink" href="#blocking-navigation" title="Permanent link">&para;</a></h1>
-<p>You may want to prevent the user from navigating away from a page, if say, they are editing a form.</p>
-<pre><code class="language-python">
-from routing.router import RoutingContext, navigate
+<p>You may want to prevent the user from navigating away from a page, for example, if they are editing a form.</p>
+<pre><code class="language-python">from routing.router import RoutingContext, navigate
 
 class EditForm(EditFormTemplate):
     def __init__(self, routing_context: RoutingContext, **properties):
@@ -146,12 +145,10 @@ class EditForm(EditFormTemplate):
     def save_button_click(self, **event_args):
         self.routing_context.unregister_blocker(self.prevent_navigation)
         navigate(path=&quot;/dashboard&quot;)
-
-
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When you register a blocker, if a user navigates to another website, the browser dialog asking if they want to leave the current page will be shown.</p>
+<p>When you register a blocker, if a user navigates to another website, the browser dialogue asking if they want to leave the current page will be shown.</p>
 </div>
 <p>Alternatively, you can use the <code>NavigationBlocker</code> context manager.</p>
 <pre><code class="language-python">from routing.router import NavigationBlocker
@@ -164,8 +161,8 @@ class Form(FormTemplate):
         with NavigationBlocker(warn_before_unload=True):
             alert(&quot;Important Alert&quot;, dismissible=False)
 </code></pre>
-<p>The above navigation blocker will prevent the user navigating away from the page while the alert is open.
-<code>warn_before_unload</code> will show the browser dialog asking if the user wants to leave the page, if the user navigates to a new website. By default this is <code>False</code>.</p>
+<p>The above navigation blocker will prevent the user from navigating away from the page while the alert is open.
+<code>warn_before_unload</code> will show the browser dialogue asking if the user wants to leave the page if they navigate to a new website. By default, this is <code>False</code>.</p>
               
             </div>
           </div><footer>

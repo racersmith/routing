@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Api Reference - Routing Docs</title>
+    <title>API Reference - Routing Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Api Reference";
+        var mkdocs_page_name = "API Reference";
         var mkdocs_page_input_path = "api-reference.md";
         var mkdocs_page_url = null;
       </script>
@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Api Reference</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">API Reference</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
     </li>
@@ -128,7 +128,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Api Reference</li>
+      <li class="breadcrumb-item active">API Reference</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -137,8 +137,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="api-reference">Api Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
-<p>The routing library provides the following functions, classes and attributes.
+                <h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>The routing library provides the following functions, classes, and attributes.
 All attributes can be accessed from the <code>routing.router</code> module.</p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <dl>
@@ -150,28 +150,28 @@ All attributes can be accessed from the <code>routing.router</code> module.</p>
 <dt><code>launch()</code></dt>
 <dd>Launches the routing library and navigates to the first route. Call this in your startup module.</dd>
 <dt><code>go(n=0)</code></dt>
-<dd>Navigates to the nth page in the history stack</dd>
+<dd>Navigates to the nth page in the history stack.</dd>
 <dt><code>back()</code></dt>
-<dd>Navigates back in the history stack</dd>
+<dd>Navigates back in the history stack.</dd>
 <dt><code>forward()</code></dt>
-<dd>Navigates forward in the history stack</dd>
+<dd>Navigates forward in the history stack.</dd>
 <dt><code>reload(hard=False)</code></dt>
-<dd>Reloads the current page. If <code>hard</code> is <code>True</code> then the page will be reloaded from the server. If <code>hard</code> is <code>False</code> then the page will be removed from the cache and reloaded on the client.</dd>
+<dd>Reloads the current page. If <code>hard</code> is <code>True</code>, the page will be reloaded from the server. If <code>hard</code> is <code>False</code>, the page will be removed from the cache and reloaded on the client.</dd>
 <dt><code>get_routing_context()</code></dt>
-<dd>Returns the current routing context</dd>
+<dd>Returns the current routing context.</dd>
 <dt><code>get_url()</code></dt>
 <dt><code>get_url(*, path=None, params=None, query=None, hash=None, full=False)</code></dt>
 <dt><code>get_url(path, **kws)</code></dt>
 <dt><code>get_url(routing_context, **kws)</code></dt>
-<dd>Gets the url. if no keyword arguments are passed then the current url will be returned. If <code>full</code> is <code>True</code> then the full url will be returned e.g. <code>http://my-app.anvil.app/articles/123?foo=bar#hash</code>. If <code>full</code> is <code>False</code> then the url will be relative to the base url e.g. <code>/articles/123?foo=bar#hash</code>. If no then the current page url will be returned.</dd>
+<dd>Gets the URL. If no keyword arguments are passed, the current URL will be returned. If <code>full</code> is <code>True</code>, the full URL will be returned (e.g., <code>http://my-app.anvil.app/articles/123?foo=bar#hash</code>). If <code>full</code> is <code>False</code>, the URL will be relative to the base URL (e.g., <code>/articles/123?foo=bar#hash</code>).</dd>
 <dt><code>debug_logging(enable=True)</code></dt>
-<dd>Enables or disables debug logging</dd>
+<dd>Enables or disables debug logging.</dd>
 <dt><code>clear_cache()</code></dt>
-<dd>Clears the cache of forms and data</dd>
+<dd>Clears the cache of forms and data.</dd>
 <dt><code>invalidate(*, path=None, deps=None, exact=False)</code></dt>
 <dd>Invalidates any cached data and forms based on the path and deps. The <code>exact</code> argument determines whether to invalidate based on an exact match or a partial match.</dd>
 <dt><code>open_form(form, **form_properties)</code></dt>
-<dd>When migrating you may be able to replace <code>anvil.open_form</code> with <code>router.open_form</code>. This will only work if you are not using <code>params</code>.</dd>
+<dd>When migrating, you may be able to replace <code>anvil.open_form</code> with <code>router.open_form</code>. This will only work if you are not using <code>params</code>.</dd>
 </dl>
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <dl>
@@ -185,7 +185,7 @@ All attributes can be accessed from the <code>routing.router</code> module.</p>
 <dt><code>NavLink.NavLink</code></dt>
 <dd>A link that you will likely use in your main layout's sidebar. Has an <code>active</code> property that is set when the NavLink's navigation properties match the current routing context.</dd>
 <dt><code>Anchor.Anchor</code></dt>
-<dd>A link that you can use inline, or use as a container for other components.</dd>
+<dd>A link that you can use inline or as a container for other components.</dd>
 </dl>
 <h2 id="context-managers">Context Managers<a class="headerlink" href="#context-managers" title="Permanent link">&para;</a></h2>
 <dl>
@@ -197,7 +197,7 @@ All attributes can be accessed from the <code>routing.router</code> module.</p>
 <dt><code>Redirect</code></dt>
 <dd>Raise during a route's <code>before_load</code> method to redirect to a different route.</dd>
 <dt><code>NotFound</code></dt>
-<dd>Raised when a route is not found for given path.</dd>
+<dd>Raised when a route is not found for a given path.</dd>
 </dl>
               
             </div>

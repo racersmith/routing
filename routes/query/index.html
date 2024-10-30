@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -141,17 +141,16 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="query">Query<a class="headerlink" href="#query" title="Permanent link">&para;</a></h1>
-<p>Query parameters are encoded in a url following a <code>?</code>, e.g. <code>/dashboard?tab=sales&amp;page=1</code>.
+<p>Query parameters are encoded in a URL following a <code>?</code>, e.g. <code>/dashboard?tab=sales&amp;page=1</code>.
 Query parameters may be referred to by different names, e.g. search, search params, query params, etc.</p>
-<p>In this routing library we will refer to <code>query</code> as a dictionary of query parameters.
-And a <code>query string</code> will be the url encoded version of the <code>query</code>.</p>
+<p>In this routing library, we will refer to <code>query</code> as a dictionary of query parameters.
+And a <code>query string</code> will be the URL-encoded version of the <code>query</code>.</p>
 <p>The <code>query</code> is best used to encode the state of the page.
 For example, if you have a dashboard page with a tab component, you can use the query to encode the active tab.</p>
 <h2 id="navigating">Navigating<a class="headerlink" href="#navigating" title="Permanent link">&para;</a></h2>
 <p>Let's say you have a dashboard page with a tab component.
 The tab component has 2 tabs, income and expenses.</p>
-<pre><code class="language-python">
-from ._anvil_designer import DashboardTemplate
+<pre><code class="language-python">from ._anvil_designer import DashboardTemplate
 from routing.router import navigate, RoutingContext
 
 class Dashboard(DashboardTemplate):
@@ -168,16 +167,14 @@ class Dashboard(DashboardTemplate):
     def tab_changed(self, **event_args):
         tab_value = self.tab_1.value
         navigate(query={&quot;tab&quot;: tab_value})
-
-
 </code></pre>
 <p>Note that in the <code>tab_changed</code> event handler, we are navigating to the same path, and so, we don't need to include the <code>path</code> in the <code>navigate</code> call.
 If we want to be explicit, we can use <code>path="./"</code> or <code>path="/dashboard"</code>.</p>
 <p>By default, if the query parameters change, a new instance of the form will be loaded (even if <code>cache_form</code> is set to <code>True</code>). See <code>cache_deps</code> below for more details.
 When the query parameters change, we can listen for the <code>query_changed</code> event and update our page state accordingly.</p>
 <h2 id="parsing-query-parameters">Parsing Query Parameters<a class="headerlink" href="#parsing-query-parameters" title="Permanent link">&para;</a></h2>
-<p>Since query parameters are encoded in the url, we may need to decode them.
-It's also generally a good idea to ignore unknown query parameters and provide sensible defaults if any are missing, or incorrect. This provides a better user experience.</p>
+<p>Since query parameters are encoded in the URL, we may need to decode them.
+It's also generally a good idea to ignore unknown query parameters and provide sensible defaults if any are missing or incorrect. This provides a better user experience.</p>
 <pre><code class="language-python">from routing.router import Route
 
 class DashboardRoute(Route):
@@ -191,13 +188,10 @@ class DashboardRoute(Route):
             tab = &quot;income&quot;
 
         return {&quot;tab&quot;: tab}
-
-
 </code></pre>
 <h3 id="using-a-query-validator">Using a query validator<a class="headerlink" href="#using-a-query-validator" title="Permanent link">&para;</a></h3>
 <p>You can use a validator library. And if the validator has a <code>parse</code> method, it can be used as the <code>parse_query</code> attribute.</p>
-<pre><code class="language-python">
-from anvil_extras import zod as z
+<pre><code class="language-python">from anvil_extras import zod as z
 
 class DashboardRoute(Route):
     path = &quot;/dashboard&quot;
@@ -206,25 +200,22 @@ class DashboardRoute(Route):
     parse_query = z.typed_dict({
         &quot;tab&quot;: z.enum([&quot;income&quot;, &quot;expenses&quot;]).catch(&quot;income&quot;)
     })
-
-
 </code></pre>
 <h2 id="query-encoding">Query encoding<a class="headerlink" href="#query-encoding" title="Permanent link">&para;</a></h2>
-<p>The routing library can encode any json-able object as a query parameter.
-Where a query parameter is a <code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code> or <code>None</code> this will be flat.</p>
+<p>The routing library can encode any JSON-able object as a query parameter.
+Where a query parameter is a <code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code> or <code>None</code>, this will be flat.</p>
 <p>e.g. <code>?foo=bar&amp;baz=1&amp;eggs=true</code> will be decoded as <code>{"foo": "bar", "baz": 1, "eggs": True}</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have numbers in your query parameters, but these should actually be strings, you can convert these to <code>str</code> in your <code>parse_query</code> method.</p>
 </div>
-<p>For nested, json-able objects, i.e. <code>lists</code> and <code>dicts</code>, the routing library will encode the object as a json string in the query string.</p>
+<p>For nested, JSON-able objects, i.e. <code>lists</code> and <code>dicts</code>, the routing library will encode the object as a JSON string in the query string.</p>
 <p>e.g. <code>foo=%5B1%2C+%22a%22%2C+true%5D'</code> will be decoded as <code>{"foo": [1, "a", true]}</code>.</p>
 <h2 id="loading-a-new-instance-of-a-form">Loading a new instance of a form<a class="headerlink" href="#loading-a-new-instance-of-a-form" title="Permanent link">&para;</a></h2>
-<p>By default the routing library will load a new instance of a form when the query parameters change.</p>
-<p>If you do NOT wish to load a new instance of a form when certain query parameters change, you can override the<code>cache_deps</code> method.</p>
-<p>This method should return a <code>dict</code> of dependencies, which determine when a form and its data should be loaded from <code>cache</code>. The return value from <code>cache_deps</code> should be json-able.</p>
-<pre><code class="language-python">
-from routing.router import Route
+<p>By default, the routing library will load a new instance of a form when the query parameters change.</p>
+<p>If you do NOT wish to load a new instance of a form when certain query parameters change, you can override the <code>cache_deps</code> method.</p>
+<p>This method should return a <code>dict</code> of dependencies, which determine when a form and its data should be loaded from <code>cache</code>. The return value from <code>cache_deps</code> should be JSON-able.</p>
+<pre><code class="language-python">from routing.router import Route
 
 class DashboardRoute(Route):
     path = &quot;/dashboard&quot;
@@ -235,9 +226,8 @@ class DashboardRoute(Route):
         # this form is cached uniquely by the `path` only - there are no `query` dependencies
         # i.e. if the `tab` changes, we keep the same instance of the form
         return None
-
 </code></pre>
-<p>For more details on <code>cache_deps</code> see the data loading section.</p>
+<p>For more details on <code>cache_deps</code>, see the data loading section.</p>
               
             </div>
           </div><footer>

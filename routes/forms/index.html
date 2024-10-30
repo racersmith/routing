@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -70,7 +70,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Forms</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#open_form-alternative">open_form alternative</a>
+    <li class="toctree-l2"><a class="reference internal" href="#open_form-alternative">open_form Alternative</a>
     </li>
     </ul>
                   </li>
@@ -132,17 +132,16 @@
               
                 <h2 id="forms">Forms<a class="headerlink" href="#forms" title="Permanent link">&para;</a></h2>
 <p>The <code>Route.load_form</code> method is called when the route is matched. The default implementation will call <code>anvil.open_form</code> on the matching route's form.</p>
-<pre><code class="language-python">
-class Route:
+<pre><code class="language-python">class Route:
     def load_form(self, form, routing_context):
         return anvil.open_form(
             form, routing_context=routing_context, **routing_context.form_properties
         )
 </code></pre>
 <p>This method will be called with the form attribute (e.g. <code>"Pages.Index"</code>) or, if you are using cached forms, the cached form instance.</p>
-<h3 id="open_form-alternative"><code>open_form</code> alternative<a class="headerlink" href="#open_form-alternative" title="Permanent link">&para;</a></h3>
-<p>If you are using traditional routing in your anvil app, you may have a template with a <code>content_panel</code>, and during navigation you clear the content panel and then add the new form to the panel.</p>
-<p>If you want to use this style of routing the routing library provides a <code>TemplateWithContainerRoute</code> class. This class overrides the <code>load_form</code> method.</p>
+<h3 id="open_form-alternative"><code>open_form</code> Alternative<a class="headerlink" href="#open_form-alternative" title="Permanent link">&para;</a></h3>
+<p>If you are using traditional routing in your Anvil app, you may have a template with a <code>content_panel</code>, and during navigation, you clear the content panel and then add the new form to the panel.</p>
+<p>If you want to use this style of routing, the routing library provides a <code>TemplateWithContainerRoute</code> class. This class overrides the <code>load_form</code> method.</p>
 <pre><code class="language-python">from routing.router import TemplateWithContainerRoute as BaseRoute
 
 BaseRoute.template = &quot;MainTemplate&quot;
@@ -150,13 +149,11 @@ BaseRoute.template = &quot;MainTemplate&quot;
 class IndexRoute(BaseRoute):
     path = &quot;/&quot;
     form = &quot;Pages.Index&quot;
-
 </code></pre>
-<p>In this case, the <code>load_form</code> method will call <code>anvil.open_form</code> on the template form (if it is not already the current open form). It will then instantiate the form clear the <code>content_panel</code> of the template add add the form to the panel.</p>
-<p>If you are not using something other then <code>content_panel</code>, you can set the <code>template_container</code> attribute to the container name.</p>
+<p>In this case, the <code>load_form</code> method will call <code>anvil.open_form</code> on the template form (if it is not already the current open form). It will then instantiate the form, clear the <code>content_panel</code> of the template, and add the form to the panel.</p>
+<p>If you are using something other than <code>content_panel</code>, you can set the <code>template_container</code> attribute to the container name.</p>
 <p>You can also set the <code>template_container_properties</code> attribute to a dictionary of container properties. This is useful if you want to set the <code>full_width_row</code> attribute.</p>
-<pre><code class="language-python">
-from routing.router import TemplateWithContainerRoute as BaseRoute
+<pre><code class="language-python">from routing.router import TemplateWithContainerRoute as BaseRoute
 
 BaseRoute.template = &quot;MainTemplate&quot;
 BaseRoute.template_container = &quot;content_panel&quot;
@@ -165,7 +162,6 @@ BaseRoute.template_container_properties = {&quot;full_width_row&quot;: True}
 class IndexRoute(BaseRoute):
     path = &quot;/&quot;
     form = &quot;Pages.Index&quot;
-
 </code></pre>
               
             </div>

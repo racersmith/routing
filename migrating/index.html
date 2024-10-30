@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -140,29 +140,26 @@
               
                 <h1 id="migrating">Migrating<a class="headerlink" href="#migrating" title="Permanent link">&para;</a></h1>
 <h2 id="from-an-app-that-navigates-with-anvilopen_form">From an app that navigates with <code>anvil.open_form</code><a class="headerlink" href="#from-an-app-that-navigates-with-anvilopen_form" title="Permanent link">&para;</a></h2>
-<p>Define your routes. If you are not using <code>params</code> in any routes you should be able to replace all calls to <code>anvil.open_form</code> with <code>router.open_form</code>. To begin with make sure to set <code>cached_forms</code> to <code>False</code>. As you decide certain routes should have <code>params</code> you will need to replace <code>router.open_form</code> with <code>router.navigate</code>. The keyword arguments to <code>open_form</code> will be a dictionary you pass to the <code>form_properties</code> argument of <code>navigate</code>.</p>
-<p>A common gotcha will be that a Form could previously rely on the <code>item</code> property always being passed to the form. But this will not be the case if a user navigates directly to the form. In this case the <code>item</code> property will be <code>None</code> and you will have to fetch the item based on the <code>routing_context</code>.</p>
+<p>Define your routes. If you are not using <code>params</code> in any routes, you should be able to replace all calls to <code>anvil.open_form</code> with <code>router.open_form</code>. To begin with, make sure to set <code>cached_forms</code> to <code>False</code>. As you decide certain routes should have <code>params</code>, you will need to replace <code>router.open_form</code> with <code>router.navigate</code>. The keyword arguments to <code>open_form</code> will be a dictionary you pass to the <code>form_properties</code> argument of <code>navigate</code>.</p>
+<p>A common pitfall will be that a Form could previously rely on the <code>item</code> property always being passed to the form. However, this will not be the case if a user navigates directly to the form. In this case, the <code>item</code> property will be <code>None</code>, and you will have to fetch the item based on the <code>routing_context</code>.</p>
 <h2 id="from-anvil_extrasrouting-hashrouting">From <code>anvil_extras.routing</code> (<code>HashRouting</code>)<a class="headerlink" href="#from-anvil_extrasrouting-hashrouting" title="Permanent link">&para;</a></h2>
 <p>Define your routes. Each route definition will be similar to the hash routing <code>@route</code> decorator.</p>
-<p>By default, when a route subclasses from <code>Route</code> the routing library will call <code>anvil.open_form</code> on the matching route's form. For hash routing apps, this is not what you want. Instead you should subclass from <code>TemplateWithContainerRoute</code> and set the <code>template</code> attribute to the template form.</p>
-<pre><code class="language-python">
-from routing.router import TemplateWithContainerRoute as BaseRoute
+<p>By default, when a route subclasses from <code>Route</code>, the routing library will call <code>anvil.open_form</code> on the matching route's form. For hash routing apps, this is not what you want. Instead, you should subclass from <code>TemplateWithContainerRoute</code> and set the <code>template</code> attribute to the template form.</p>
+<pre><code class="language-python">from routing.router import TemplateWithContainerRoute as BaseRoute
 
 BaseRoute.template = &quot;MainTemplate&quot;
 
 class IndexRoute(BaseRoute):
     path = &quot;/&quot;
     form = &quot;Pages.Index&quot;
-
 </code></pre>
-<p>If you have a single template in your hash routing app, then set the <code>BaseRoute.template = "MyTemplate"</code>.</p>
-<p>If you have multiple templates, then you can either set the <code>template</code> attribute on individual routes, or define a <code>get_template</code> method on the <code>Route</code> class.</p>
-<h4 id="set_url_hash"><code>set_url_hash</code><a class="headerlink" href="#set_url_hash" title="Permanent link">&para;</a></h4>
+<p>If you have a single template in your hash routing app, then set <code>BaseRoute.template = "MyTemplate"</code>.</p>
+<p>If you have multiple templates, then you can either set the <code>template</code> attribute on individual routes or define a <code>get_template</code> method on the <code>Route</code> class.</p>
+<h3 id="set_url_hash"><code>set_url_hash</code><a class="headerlink" href="#set_url_hash" title="Permanent link">&para;</a></h3>
 <p>Instead of calling hash routing's <code>set_url_hash</code> method, use the <code>navigate</code> function.</p>
-<h4 id="full_width_row"><code>full_width_row</code><a class="headerlink" href="#full_width_row" title="Permanent link">&para;</a></h4>
-<p>If the route decorator uses <code>full_width_row</code> you should configure the <code>Route.template_container_properties</code> attribute.</p>
-<pre><code class="language-python">
-from routing.router import TemplateWithContainerRoute as BaseRoute
+<h3 id="full_width_row"><code>full_width_row</code><a class="headerlink" href="#full_width_row" title="Permanent link">&para;</a></h3>
+<p>If the route decorator uses <code>full_width_row</code>, you should configure the <code>Route.template_container_properties</code> attribute.</p>
+<pre><code class="language-python">from routing.router import TemplateWithContainerRoute as BaseRoute
 
 BaseRoute.template = &quot;MainTemplate&quot;
 
@@ -170,7 +167,6 @@ class IndexRoute(BaseRoute):
     path = &quot;/&quot;
     form = &quot;Pages.Index&quot;
     template_container_properties = {&quot;full_width_row&quot;: True}
-
 </code></pre>
               
             </div>

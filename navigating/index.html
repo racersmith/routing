@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">Api Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="../api-reference/">API Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Navigating</span></p>
@@ -144,13 +144,11 @@
 <p>There are two ways to navigate. The first is with the <code>navigate</code> function, and the second is with a <a href="/navigating/Navigation%20Components">navigation component</a>.</p>
 <h2 id="navigating-with-navigate">Navigating with <code>navigate</code><a class="headerlink" href="#navigating-with-navigate" title="Permanent link">&para;</a></h2>
 <p>The <code>navigate</code> function is a function that you will likely call from a click handler.</p>
-<pre><code class="language-python">
-from routing.router import navigate
+<pre><code class="language-python">from routing.router import navigate
 
 class Form(FormTemplate):
     def nav_button_click(self, **event_args):
         navigate(path=&quot;/articles/:id&quot;, params={&quot;id&quot;: 123})
-
 </code></pre>
 <h3 id="call-signatures">Call Signatures<a class="headerlink" href="#call-signatures" title="Permanent link">&para;</a></h3>
 <ul>
@@ -159,43 +157,29 @@ class Form(FormTemplate):
 <li><code>navigate(path, **kws)</code>
     <em>the first argument can be the path</em></li>
 <li><code>navigate(url, **kws)</code>
-    <em>the first argument ca be a url</em></li>
+    <em>the first argument can be a URL</em></li>
 <li><code>navigate(routing_context, **kws)</code>
     <em>the first argument can be a routing context</em></li>
 </ul>
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>path</code></dt>
-<dd>
-<p>The path to navigate to. e.g. <code>/articles/123</code> or <code>/articles</code> or <code>/articles/:id</code>. The path can be relative <code>./</code>. If not set then the path will be the current path.</p>
-</dd>
+<dd>The path to navigate to. e.g. <code>/articles/123</code> or <code>/articles</code> or <code>/articles/:id</code>. The path can be relative <code>./</code>. If not set, then the path will be the current path.</dd>
 <dt><code>params</code></dt>
-<dd>
-<p>The params for the path. e.g. <code>{"id": 123}</code></p>
-</dd>
+<dd>The params for the path. e.g. <code>{"id": 123}</code></dd>
 <dt><code>query</code></dt>
-<dd>
-<p>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code></p>
-</dd>
+<dd>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code></dd>
 <dt><code>hash</code></dt>
-<dd>
-<p>The hash to navigate to.</p>
-</dd>
+<dd>The hash to navigate to.</dd>
 <dt><code>replace</code></dt>
-<dd>
-<p>If <code>True</code> then the current url will be replaced with the new url (default is <code>False</code>).</p>
-</dd>
+<dd>If <code>True</code>, then the current URL will be replaced with the new URL (default is <code>False</code>).</dd>
 <dt><code>nav_context</code></dt>
-<dd>
-<p>The nav context to for this navigation.</p>
-</dd>
+<dd>The nav context for this navigation.</dd>
 <dt><code>form_properties</code></dt>
-<dd>
-<p>The form properties to pass to the form when it is opened.</p>
-</dd>
+<dd>The form properties to pass to the form when it is opened.</dd>
 </dl>
 <h3 id="use-of-form_properties">Use of <code>form_properties</code><a class="headerlink" href="#use-of-form_properties" title="Permanent link">&para;</a></h3>
-<p>The <code>form_properties</code> is a dictionary that is passed to the <code>open_form</code> function. A common use case is to pass the form's <code>item</code> property. Note that if you are relying on <code>form_properties</code> you will always need to account for <code>form_properties</code> being an empty dictionary, when the user navigates by changing the url directly.</p>
+<p>The <code>form_properties</code> is a dictionary that is passed to the <code>open_form</code> function. A common use case is to pass the form's <code>item</code> property. Note that if you are relying on <code>form_properties</code>, you will always need to account for <code>form_properties</code> being an empty dictionary when the user navigates by changing the URL directly.</p>
 <pre><code class="language-python">from routing import router
 
 class RowTemplate(RowTemplateTemplate):
@@ -203,30 +187,33 @@ class RowTemplate(RowTemplateTemplate):
         self.init_components(**properties)
 
     def button_click(self, **event_args):
-        router.navigate(path=&quot;/articles/:id&quot;, params={&quot;id&quot;: self.item[&quot;id&quot;]}, form_properties={&quot;item&quot;: self.item})
+        router.navigate(
+            path=&quot;/articles/:id&quot;,
+            params={&quot;id&quot;: self.item[&quot;id&quot;]},
+            form_properties={&quot;item&quot;: self.item}
+        )
 </code></pre>
 <p>And then in the <code>/articles/:id</code> route:</p>
-<pre><code class="language-python">
-from routing import router
+<pre><code class="language-python">from routing import router
 
 class ArticleForm(ArticleFormTemplate):
     def __init__(self, routing_context: router.RoutingContext, **properties):
         self.routing_context = routing_context
         if properties.get(&quot;item&quot;) is None:
-            # the user navigated directly to the form by changing the url
-            properties[&quot;item&quot;] = anvil.server.call(&quot;get_article&quot;, routing_context.params[&quot;id&quot;])
+            # The user navigated directly
+            # to the form by changing the URL
+            article_id = routing_context.params[&quot;id&quot;]
+            properties[&quot;item&quot;] = anvil.server.call(&quot;get_article&quot;, article_id)
 
         self.init_components(**properties)
-
 </code></pre>
 <h3 id="use-of-nav_context">Use of <code>nav_context</code><a class="headerlink" href="#use-of-nav_context" title="Permanent link">&para;</a></h3>
-<p>The <code>nav_context</code> is a dictionary that is passed to the <code>navigate</code> function. A use case for this is to pass the previous routing context to the next routing context. This is useful when you want to navigate to a new route, but you want to preserve the previous route's data. Particularly if the previous route uses query parameters that determine the state of the form.</p>
+<p>The <code>nav_context</code> is a dictionary that is passed to the <code>navigate</code> function. A use case for this is to pass the previous routing context to the next routing context. This is useful when you want to navigate to a new route but want to preserve the previous route's data, particularly if the previous route uses query parameters that determine the state of the form.</p>
 <pre><code class="language-python">from routing import router
 
 def on_button_click(self, **event_args):
     current_context = router.get_routing_context()
     router.navigate(path=&quot;/foo&quot;, nav_context={&quot;prev_context&quot;: current_context})
-
 </code></pre>
 <p>And then in the <code>/foo</code> route:</p>
 <pre><code class="language-python">from routing import router
@@ -241,15 +228,14 @@ class FooForm(FooFormTemplate):
         if prev_context is not None:
             router.navigate(prev_context)
         else:
-            # no nav-context - the user navigated directly to the form by changing the url
+            # No nav-context - the user navigated directly to the form by changing the URL
             router.navigate(path=&quot;/&quot;)
-
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../api-reference/" class="btn btn-neutral float-left" title="Api Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../api-reference/" class="btn btn-neutral float-left" title="API Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="navigation-components/" class="btn btn-neutral float-right" title="Navigation Components">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
