@@ -87,14 +87,14 @@
                   <li class="toctree-l1"><a class="reference internal" href="../caching/">Caching</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Contributing</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Data loading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../data-loading/">Data Loading</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Theme</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Theme</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Migrating</span></p>
@@ -114,9 +114,9 @@
     </ul>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Theme</span></p>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../theme/">Theme</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
               </ul>
       </div>
@@ -159,9 +159,10 @@ class IndexRoute(BaseRoute):
     form = &quot;Pages.Index&quot;
 </code></pre>
 <p>If you have a single template in your hash routing app, then set <code>BaseRoute.template = "MyTemplate"</code>.</p>
-<p>If you have multiple templates, then you can either set the <code>template</code> attribute on individual routes or define a <code>get_template</code> method on the <code>Route</code> class.</p>
+<p>If you have multiple templates, then you can either set the <code>template</code> attribute on individual routes.</p>
 <h3 id="set_url_hash"><code>set_url_hash</code><a class="headerlink" href="#set_url_hash" title="Permanent link">&para;</a></h3>
 <p>Instead of calling hash routing's <code>set_url_hash</code> method, use the <code>navigate</code> function.</p>
+<p>Or, if the <code>set_url_hash</code> call is inside a <code>Link</code>'s click handler, replace the <code>Link</code> with a <code>NavLink</code>/<code>Anchor</code>. Set the <code>path</code> and <code>query</code> attribute appropriately and remove the click handler.</p>
 <h3 id="full_width_row"><code>full_width_row</code><a class="headerlink" href="#full_width_row" title="Permanent link">&para;</a></h3>
 <p>If the route decorator uses <code>full_width_row</code>, you should configure the <code>Route.template_container_properties</code> attribute.</p>
 <pre><code class="language-python">from routing.router import TemplateWithContainerRoute as BaseRoute
@@ -173,12 +174,19 @@ class IndexRoute(BaseRoute):
     form = &quot;Pages.Index&quot;
     template_container_properties = {&quot;full_width_row&quot;: True}
 </code></pre>
+<p>If you are using <code>full_width_row</code> on all routes then you can set the <code>full_width_row</code> attribute on the <code>Route</code> class.</p>
+<pre><code class="language-python">from routing.router import TemplateWithContainerRoute as BaseRoute
+
+BaseRoute.template = &quot;MainTemplate&quot;
+BaseRoute.template_container_properties = {&quot;full_width_row&quot;: True}
+
+</code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../data-loading/" class="btn btn-neutral float-left" title="Data Loading"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../theme/" class="btn btn-neutral float-right" title="Theme">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../theme/" class="btn btn-neutral float-left" title="Theme"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../contributing/" class="btn btn-neutral float-right" title="Contributing">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -201,10 +209,10 @@ class IndexRoute(BaseRoute):
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../data-loading/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../theme/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../theme/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../contributing/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
