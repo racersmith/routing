@@ -159,7 +159,7 @@ class IndexRoute(BaseRoute):
     form = &quot;Pages.Index&quot;
 </code></pre>
 <p>If you have a single template in your hash routing app, then set <code>BaseRoute.template = "MyTemplate"</code>.</p>
-<p>If you have multiple templates, then you can either set the <code>template</code> attribute on individual routes.</p>
+<p>If you have multiple templates, then you can set the <code>template</code> attribute on individual routes.</p>
 <h3 id="set_url_hash"><code>set_url_hash</code><a class="headerlink" href="#set_url_hash" title="Permanent link">&para;</a></h3>
 <p>Instead of calling hash routing's <code>set_url_hash</code> method, use the <code>navigate</code> function.</p>
 <p>Or, if the <code>set_url_hash</code> call is inside a <code>Link</code>'s click handler, replace the <code>Link</code> with a <code>NavLink</code>/<code>Anchor</code>. Set the <code>path</code> and <code>query</code> attribute appropriately and remove the click handler.</p>
