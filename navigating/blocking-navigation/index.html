@@ -63,6 +63,8 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Blocking Navigation</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#alerts">Alerts</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -168,6 +170,20 @@ class Form(FormTemplate):
 </code></pre>
 <p>The above navigation blocker will prevent the user from navigating away from the page while the alert is open.
 <code>warn_before_unload</code> will show the browser dialogue asking if the user wants to leave the page if they navigate to a new website. By default, this is <code>False</code>.</p>
+<h2 id="alerts">Alerts<a class="headerlink" href="#alerts" title="Permanent link">&para;</a></h2>
+<p>The <code>alert</code> and <code>confirm</code> functions are provided by the routing library. These functions behave similarly to Anvil's default <code>alert</code> and <code>confirm</code> functions, but they will block navigation when <code>dismissible</code> is <code>True</code>, or close the alert when the user navigates to a new page.</p>
+<p>You can override the default <code>alert</code> and <code>confirm</code> functions by setting the <code>anvil.alert</code> and <code>anvil.confirm</code> attributes in your startup module.</p>
+<pre><code class="language-python"># startup.py
+import anvil
+from routing import router
+from . import routes
+
+anvil.alert = router.alert
+anvil.confirm = router.confirm
+
+if __name__ == &quot;__main__&quot;:
+    router.launch()
+</code></pre>
               
             </div>
           </div><footer>

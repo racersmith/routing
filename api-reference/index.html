@@ -177,6 +177,10 @@ All attributes can be accessed from the <code>routing.router</code> module.</p>
 <dd>Invalidates any cached data and forms based on the path and deps. The <code>exact</code> argument determines whether to invalidate based on an exact match or a partial match.</dd>
 <dt><code>open_form(form, **form_properties)</code></dt>
 <dd>When migrating, you may be able to replace <code>anvil.open_form</code> with <code>router.open_form</code>. This will only work if you are not using <code>params</code>.</dd>
+<dt><code>alert(content, *args, dismissible=True, **kwargs)</code></dt>
+<dd>Shows an alert. If <code>dismissible</code> is <code>True</code>, the alert will be dismissed when the user navigates to a new page. To override Anvil's default alert, you can set the <code>anvil.alert = router.alert</code>.</dd>
+<dt><code>confirm(content, *args, dismissible=True, **kwargs)</code></dt>
+<dd>Shows a confirmation dialog. If <code>dismissible</code> is <code>True</code>, the dialog will be dismissed when the user navigates to a new page. To override Anvil's default alert, you can set the <code>anvil.alert = router.alert</code>.</dd>
 </dl>
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <dl>
