@@ -54,3 +54,44 @@ except ImportError:
 anvil.pluggable_ui.provide_defaults(
     "routing", {"routing.NavLink": BaseNavLink, "routing.Anchor": BaseAnchor}
 )
+
+
+def wrap_modal(modal):
+    def modal_wrapper(content, **kws):
+        from .router import NavigationBlocker
+        from .router._alert import DismissibleAlert
+
+        if isinstance(content, str):
+            content = anvil.Label(text=content)
+
+        dismissible = kws.get("dismissible", False)
+
+        if dismissible:
+            with DismissibleAlert(content):
+                return modal(content=content, **kws)
+        else:
+            with NavigationBlocker():
+                return modal(content=content, **kws)
+
+    return modal_wrapper
+
+
+modal = anvil.pluggable_ui["anvil.modal"]
+
+anvil.pluggable_ui.provide("routing", {"anvil.modal": wrap_modal(modal)})
+
+
+def on_modal_changed(updates, **event_args):
+    new_modal = updates.get("anvil.modal")
+    if new_modal is None:
+        return
+
+    if event_args.get("provider") == "routing":
+        return
+
+    # need to be careful we don't cause an infinite loop
+    # this might happen if someone else is listening for anvil.modal changes
+    anvil.pluggable_ui.provide("routing", {"anvil.modal": wrap_modal(new_modal)})
+
+
+anvil.pluggable_ui.add_listener("anvil.modal", on_modal_changed)
