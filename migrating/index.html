@@ -109,6 +109,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#full_width_row">full_width_row</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#on_navigation-callback">on_navigation callback</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -181,6 +183,42 @@ BaseRoute.template = &quot;MainTemplate&quot;
 BaseRoute.template_container_properties = {&quot;full_width_row&quot;: True}
 
 </code></pre>
+<h3 id="on_navigation-callback"><code>on_navigation</code> callback<a class="headerlink" href="#on_navigation-callback" title="Permanent link">&para;</a></h3>
+<p>In hash routing the <code>on_navigation</code> method is called on the Template form when the hash changes. This is often used to update the active nav link in the sidebar. If you are using <code>Link</code> components in your sidebar, we recommend replacing these with <code>NavLink</code> components. The <code>NavLink</code> component will automatically update the <code>active</code> property when the url changes, and removes the need for <code>click</code> handlers. <code>NavLink</code>s also improve user experience as they support <code>ctrl+click</code> to open in a new tab, and preserves the browser's native link preview behavior, allowing users to see the destination URL in their browser's status bar when hovering over the link.</p>
+<p>If you want to keep your existing <code>on_navigation</code> method, you can achieve this through the <code>router</code>'s event system. The <code>router</code> will emit a <code>navigation</code> event when the url changes.</p>
+<pre><code class="language-python">
+from ._anvil_designer import MainTemplate
+from routing import router
+
+
+class Main(MainTemplate):
+    def __init__(self, **properties):
+        self.links = {&quot;/&quot;: self.home_nav, &quot;/about&quot;: self.about_nav}
+        self.init_components(**properties)
+
+    def on_navigate(self, **event_args):
+        context = router.get_routing_context()
+        for path, link in self.links.items():
+            if path == context.path:
+                link.role = &quot;selected&quot;
+            else:
+                link.role = None
+
+    def home_nav_click(self, **event_args):
+        router.navigate(&quot;/&quot;)
+
+    def about_nav_click(self, **event_args):
+        router.navigate(&quot;/about&quot;)
+
+    def form_show(self, **event_args):
+        router.add_event_handler(&quot;navigate&quot;, self.on_navigate)
+        self.on_navigate()
+
+    def form_hide(self, **event_args):
+        router.remove_event_handler(&quot;navigate&quot;, self.on_navigate)
+
+</code></pre>
+<p>If you have multiple Templates, we recommend subscribing to the <code>navigation</code> event in the <code>form_show</code> method of your template form, and unsubscribing in the <code>form_hide</code> method. If you only have a single template, you can subscribe to the <code>navigation</code> event in the <code>__init__</code> method of your template form and there is no need to unsubscribe.</p>
               
             </div>
           </div><footer>

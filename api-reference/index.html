@@ -162,6 +162,17 @@ All attributes can be accessed from the <code>routing.router</code> module.</p>
 <dd>Navigates forward in the history stack.</dd>
 <dt><code>reload(hard=False)</code></dt>
 <dd>Reloads the current page. If <code>hard</code> is <code>True</code>, the page will be reloaded from the server. If <code>hard</code> is <code>False</code>, the page will be removed from the cache and reloaded on the client.</dd>
+<dt><code>add_event_handler(event_name, handler)</code></dt>
+<dd>Adds an event handler for the given event name. The event handler should take a <code>**event_args</code> argument. The <code>event_name</code> can be one of the following:</dd>
+</dl>
+<ul>
+<li><code>"navigate"</code>: raised when the url changes.</li>
+<li><code>"pending"</code>: raised when the navigation starts.</li>
+<li><code>"idle"</code>: raised when the navigation is complete.</li>
+</ul>
+<dl>
+<dt><code>remove_event_handler(event_name, handler)</code></dt>
+<dd>Removes an event handler for the given event name.</dd>
 <dt><code>get_routing_context()</code></dt>
 <dd>Returns the current routing context.</dd>
 <dt><code>get_url()</code></dt>
