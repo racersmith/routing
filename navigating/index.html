@@ -173,7 +173,16 @@ class Form(FormTemplate):
 <dt><code>params</code></dt>
 <dd>The params for the path. e.g. <code>{"id": 123}</code></dd>
 <dt><code>query</code></dt>
-<dd>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code></dd>
+<dd>The query parameters to navigate to. e.g. <code>{"tab": "income"}</code>. This can be a function that takes the current query parameters as an argument and returns the new query parameters. If you provide a query function, avoid modifying the query parameters directly, instead return a new dictionary.</dd>
+</dl>
+<pre><code class="language-python">
+def on_button_click(self, **event_args):
+    def query(prev):
+        return {**prev, &quot;open&quot;: not prev.get(&quot;open&quot;, False)}
+    navigate(query=query)
+
+</code></pre>
+<dl>
 <dt><code>hash</code></dt>
 <dd>The hash to navigate to.</dd>
 <dt><code>replace</code></dt>
