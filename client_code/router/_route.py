@@ -261,6 +261,13 @@ class TemplateWithContainerRoute(Route):
         if is_stale():
             return form
 
+        if form.parent is not None:
+            # can happen if a cached form was previously opened in a different template
+            form.remove_from_parent()
+
+        if is_stale():
+            return form
+
         container = getattr(template_form, self.template_container)
         container.clear()
         container.add_component(form, **self.template_container_properties)
