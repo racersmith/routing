@@ -4,7 +4,7 @@
 # ruff:noqa: F401
 import anvil
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 if anvil.is_server_side():
     from .server import NavigationBlocker, UnloadBlocker, launch, navigation_emitter

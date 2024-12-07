@@ -1,6 +1,30 @@
 # Changelog
 
-## v0.3.2 (01/01/1970)
+## v0.3.3 (01/01/1970)
+## What's Changed
+### 🐛 Bug Fixes
+
+- fix: form in template container might not have been removed from its previous parent [#49](https://github.com/anvil-works/routing/pull/49)
+
+### 📖 Documentation
+
+- Document callable query argument to navigate and navlink [#44](https://github.com/anvil-works/routing/pull/44)
+- Added more migration documentation about advanced usage of anvil_extras routing [#45](https://github.com/anvil-works/routing/pull/45)
+- Add documentation for `add_event_handler` uses, including migration from hash routing [#43](https://github.com/anvil-works/routing/pull/43)
+
+### Other changes
+
+- namespace link attributes and methods to avoid conflicts [#39](https://github.com/anvil-works/routing/pull/39)
+
+## Contributors
+Thanks to all our contributors! 🎉
+@pre-commit-ci, @pre-commit-ci[bot], @s-cork and @yahiakala
+
+**Full Changelog**: https://github.com/anvil-works/routing/compare/v0.3.2...v0.3.3
+
+---
+
+## v0.3.2 (03/11/2024)
 ## What's Changed
 ### 🐛 Bug Fixes
 

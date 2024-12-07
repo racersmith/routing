@@ -6,7 +6,7 @@ from ._loader import load_data
 from ._matcher import Match
 from ._utils import EventEmitter, ensure_dict
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 
 class RoutingContext(EventEmitter):
