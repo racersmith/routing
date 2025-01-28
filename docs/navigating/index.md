@@ -8,7 +8,9 @@ There are two ways to navigate. The first is with the `navigate` function, and t
 
 ## Navigating with `navigate`
 
-The `navigate` function is a function that you will likely call from a click handler.
+The `navigate` function lets you navigate to a specific path through code. It is a function that you will likely call from a click handler.
+
+Do note that the `navigate` function can only be called from client code.
 
 ```python
 from routing.router import navigate
