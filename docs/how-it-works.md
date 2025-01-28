@@ -4,10 +4,18 @@ weight: -9.8
 
 # How It Works
 
+Routing lets you configure URL paths to allow your users to navigate to specific parts and states of your app directly through their browser's address bar.
+
+In general, this brings your app closer to a regular web page in terms of usage standards. For example, this can be useful for letting users bookmark specific parts of your app, or enabling usage of the back and forward buttons to navigate throughout your app.
+
 ## Routing Basics
+
+A route is an object with, among other attributes, a URL path, and a form to open when navigating to this route.
 
 As an app developer, you will need to define routes for your app.
 When the URL changes, the router will look for a matching route.
+The ultimate goal is to open the form associated with the given URL.
+
 The router will attempt to match routes in the order they are defined.
 
 When a route is found, the router will call the route's `before_load` method.
@@ -27,4 +35,4 @@ If data is cached, the router will only call the `load_data` method if the data 
 
 ## Server vs Client Routing
 
-The above process will occur on the server if the user navigates directly to a URL (the initial page request). If the user is navigating from within the app, then routing will happen on the client.
+Should the user open the app directly through a URL as their initial page request, the routing process will occur entirely on the server. Otherwise, if the user is navigating from within the app, the process occurs on the client.
