@@ -1,12 +1,13 @@
 # Data Loading
 
-Most apps will not need to use the `load_data` method and will load data during the form's instantiation or pass data through form properties. Many of the advantages of data loading can be achieved by using [cached forms](/caching#form-caching).
+Data loading allows data to be sent from the server during the initial page request, rather than loading data during form instantiation.
 
-An advantage of the data loading mechanism, over loading data during form instantiation, is that it allows data to be sent from the server during the initial page request. However, since the routing library takes advantage of client-side routing after the initial page request, the advantages of data loading are limited to the first page request.
+Most apps will not need to use the `load_data` method and will load data during the form's instantiation or pass data through form properties. Many of the advantages of data loading can be achieved by using [cached forms](/caching#form-caching).
 
 ## Limitations
 
-Data caching is determined by the `path` and the dictionary returned by the `cache_deps` method. If your App needs to share data between routes, you may find that data caching is not sufficient and results in duplicate data being loaded. You can mitigate duplicate data by using `form_properties` or `nav_context` for simple data sharing.
+* Since the routing library takes advantage of client-side routing after the initial page request, the advantages of data loading are limited to the first page request.
+* Data caching is determined by the `path` and the dictionary returned by the `cache_deps` method. If your App needs to share data between routes, you may find that data caching is not sufficient and results in duplicate data being loaded. You can mitigate duplicate data by using `form_properties` or `nav_context` for simple data sharing.
 
 ## Example
 
