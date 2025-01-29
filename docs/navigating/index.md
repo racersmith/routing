@@ -4,7 +4,7 @@ weight: -9
 
 # Navigation
 
-There are two ways to navigate. The first is with the `navigate` function, and the second is with a [navigation component](/navigating/Navigation%20Components).
+There are two ways to navigate. The first is with the `navigate` function, and the second is with a [navigation component](/navigating/navigation-components).
 
 ## Navigating with `navigate`
 
