@@ -57,6 +57,9 @@ ContactRoute = Route.create(path="/contact", form="Pages.Contact")
 `pending_min=0.5`
 : The minimum time to show the pending form when the data is loading.
 
+`cache_form=False`
+: Whether to cache the route's form. By default this is `False`.
+
 `cache_data=False`
 : Whether to cache data. By default this is `False`.
 
