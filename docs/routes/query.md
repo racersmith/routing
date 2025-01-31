@@ -3,7 +3,7 @@
 Query parameters are encoded in a URL following a `?`, e.g. `/dashboard?tab=sales&page=1`.
 Query parameters may be referred to by different names, e.g. search, search params, query params, etc.
 
-Query parameters are used to make the URL reflect the state of the page. When the page updates in response to user interaction, the URL changes to reflect those changes. Loading a URL with specific query parameters will also load the page in the state indicated by the parameters.
+Query parameters are used to make the URL reflect the state of the page. When the page updates in response to user interaction, the URL can be made to change to reflect those changes. Loading a URL with specific query parameters will also load the page in the state indicated by the parameters.
 
 For example, if you have a dashboard page with a tab component, you can use the query to encode the active tab.
 
