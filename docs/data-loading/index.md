@@ -1,6 +1,6 @@
 # Data Loading
 
-Data loading allows data to be sent from the server during the initial page request, rather than loading data during form instantiation.
+The `load_data` method allows data to be sent from the server during the initial page request, rather than loading data during form instantiation.
 
 Most apps will not need to use the `load_data` method and will load data during the form's instantiation or pass data through form properties. Many of the advantages of data loading can be achieved by using [cached forms](/caching#form-caching).
 
