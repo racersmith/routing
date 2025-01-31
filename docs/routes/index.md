@@ -94,7 +94,7 @@ ContactRoute = Route.create(path="/contact", form="Pages.Contact")
 
 `cache_deps`
 : Returns an object, by default the `query` dictionary (more information in the [query section](/routes/query/) and the [RoutingContext section](/routing-context/)). This method is part of the process of creating caching keys.
-: When a route needs to cache a form or data (more information in the [caching section](/caching/)), it does so by logging it under a caching key. This key is composed of the route's path and the return of its `cache_deps` method at the moment of caching.
+: When a route needs to cache a form or data (more information in the [caching section](/caching/)), it does so by storing it in a global dictionary under a caching key. This key is composed of the route's path and the return of its `cache_deps` method at the moment of caching.
 : If, when accessing the same route, its `cache_deps` method returns something different than when caching first occured, the caching key points to a different place within the cache, usually empty. This prompts a reload of the page.
 
 ## Not Found Form
