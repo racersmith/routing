@@ -44,11 +44,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -192,6 +192,8 @@ ContactRoute = Route.create(path=&quot;/contact&quot;, form=&quot;Pages.Contact&
 <dd>The delay before showing the pending form when the data is loading.</dd>
 <dt><code>pending_min=0.5</code></dt>
 <dd>The minimum time to show the pending form when the data is loading.</dd>
+<dt><code>cache_form=False</code></dt>
+<dd>Whether to cache the route's form. By default this is <code>False</code>.</dd>
 <dt><code>cache_data=False</code></dt>
 <dd>Whether to cache data. By default this is <code>False</code>.</dd>
 <dt><code>gc_time=30*60</code></dt>
@@ -216,7 +218,9 @@ ContactRoute = Route.create(path=&quot;/contact&quot;, form=&quot;Pages.Contact&
 <dt><code>load_form</code></dt>
 <dd>This method is called with two arguments. The first argument is a form name (e.g. <code>"Pages.Index"</code>) or, if you are using cached forms, the cached form instance. The second argument is the <code>RoutingContext</code> instance. By default this calls <code>anvil.open_form</code> on the form.</dd>
 <dt><code>cache_deps</code></dt>
-<dd>Caching is determined by the <code>path</code> and the return value of the <code>cache_deps</code> method. The default implementation returns the <code>query</code> dictionary. That is, a route with the same <code>path</code> and <code>query</code> will be considered to be the same route. And routes with different <code>query</code> will be considered to be different routes.</dd>
+<dd>Returns an object, by default the <code>query</code> dictionary (more information in the <a href="/routes/query/">query section</a> and the <a href="/routing-context/">RoutingContext section</a>). This method is part of the process of creating caching keys.</dd>
+<dd>When a route needs to cache a form or data (more information in the <a href="/caching/">caching section</a>), it does so by storing it in a global dictionary under a caching key. This key is composed of the route's path and the return of its <code>cache_deps</code> method at the moment of caching.</dd>
+<dd>If, when accessing the same route, its <code>cache_deps</code> method returns something different than when caching first occured, the caching key points to a different place within the cache, usually empty. The router thus understands this as a new route and navigates to it again.</dd>
 </dl>
 <h2 id="not-found-form">Not Found Form<a class="headerlink" href="#not-found-form" title="Permanent link">&para;</a></h2>
 <p>There are two ways a route can be not found. The first is when the user navigates to a path that does not match any routes. The second is when a user raises a <code>NotFound</code> exception in a route's <code>before_load</code> or <code>load_data</code> method.</p>

@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>How It Works - Routing Docs</title>
+    <title>Installation - Routing Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "How It Works";
-        var mkdocs_page_input_path = "how-it-works.md";
+        var mkdocs_page_name = "Installation";
+        var mkdocs_page_input_path = "installation.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -43,20 +43,18 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
-                </li>
-              </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">How It Works</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#routing-basics">Routing Basics</a>
+    <li class="toctree-l2"><a class="reference internal" href="#third-party-dependency">Third Party Dependency</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#server-vs-client-routing">Server vs Client Routing</a>
+    <li class="toctree-l2"><a class="reference internal" href="#clone-from-github">Clone from GitHub</a>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -129,7 +127,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">How It Works</li>
+      <li class="breadcrumb-item active">Installation</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -138,27 +136,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h1>
-<h2 id="routing-basics">Routing Basics<a class="headerlink" href="#routing-basics" title="Permanent link">&para;</a></h2>
-<p>As an app developer, you will need to define routes for your app.
-When the URL changes, the router will look for a matching route.
-The router will attempt to match routes in the order they are defined.</p>
-<p>When a route is found, the router will call the route's <code>before_load</code> method.
-If the <code>before_load</code> method raises a <code>Redirect</code>, the router will navigate to the redirected URL.</p>
-<p>If the route has a <code>load_data</code> method, it will be called, and the return value will be available as the <code>data</code> property on the <code>RoutingContext</code>.</p>
-<p>Once the <code>load_data</code> method has been called, the router will call the route's <code>load_form</code> method. A <code>routing_context</code> will be passed to this method. By default, the <code>load_form</code> method will call <code>anvil.open_form</code> on the matching route's form, with <code>routing_context</code> passed as a keyword argument.</p>
-<h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h2>
-<p>There are two types of caching: form caching and data caching.</p>
-<p>If a form is cached, instead of creating a new instance, the router will call the route's <code>load_form</code> method with the cached form instance.</p>
-<p>If data is cached, the router will only call the <code>load_data</code> method if the data is stale. See the <a href="/caching">Caching</a> section for more details.</p>
-<h2 id="server-vs-client-routing">Server vs Client Routing<a class="headerlink" href="#server-vs-client-routing" title="Permanent link">&para;</a></h2>
-<p>The above process will occur on the server if the user navigates directly to a URL (the initial page request). If the user is navigating from within the app, then routing will happen on the client.</p>
+                <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<h3 id="third-party-dependency">Third Party Dependency<a class="headerlink" href="#third-party-dependency" title="Permanent link">&para;</a></h3>
+<p>To use as a third party dependency, utilise the code <code>3PIDO5P3H4VPEMPL</code></p>
+<h3 id="clone-from-github">Clone from GitHub<a class="headerlink" href="#clone-from-github" title="Permanent link">&para;</a></h3>
+<ul>
+<li>In the Anvil editor, click the <strong>Clone from GitHub</strong> button.</li>
+<li>Select Authentication <code>"Anonymous"</code>.</li>
+<li>Enter the URL for the routing library repository: <code>https://github.com/anvil-works/routing</code>.</li>
+<li>Click <strong>Clone App</strong>.</li>
+</ul>
+<p>This will clone the routing library into your Anvil account.
+Whenever changes are made to the GitHub repository, you can click <code>Sync Git Remotes</code> to update your clone.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../quick-start/" class="btn btn-neutral float-left" title="Quick Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../api-reference/" class="btn btn-neutral float-right" title="API Reference">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href=".." class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../quick-start/" class="btn btn-neutral float-right" title="Quick Start">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -181,10 +176,10 @@ If the <code>before_load</code> method raises a <code>Redirect</code>, the route
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../quick-start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../api-reference/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../quick-start/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

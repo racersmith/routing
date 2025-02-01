@@ -44,11 +44,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -142,10 +142,13 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="data-loading">Data Loading<a class="headerlink" href="#data-loading" title="Permanent link">&para;</a></h1>
+<p>The <code>load_data</code> method allows data to be sent from the server during the initial page request, rather than loading data during form instantiation.</p>
 <p>Most apps will not need to use the <code>load_data</code> method and will load data during the form's instantiation or pass data through form properties. Many of the advantages of data loading can be achieved by using <a href="/caching#form-caching">cached forms</a>.</p>
-<p>An advantage of the data loading mechanism, over loading data during form instantiation, is that it allows data to be sent from the server during the initial page request. However, since the routing library takes advantage of client-side routing after the initial page request, the advantages of data loading are limited to the first page request.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<p>Data caching is determined by the <code>path</code> and the dictionary returned by the <code>cache_deps</code> method. If your App needs to share data between routes, you may find that data caching is not sufficient and results in duplicate data being loaded. You can mitigate duplicate data by using <code>form_properties</code> or <code>nav_context</code> for simple data sharing.</p>
+<ul>
+<li>Since the routing library takes advantage of client-side routing after the initial page request, the advantages of data loading are limited to the first page request.</li>
+<li>Data caching is determined by the <code>path</code> and the dictionary returned by the <code>cache_deps</code> method. If your App needs to share data between routes, you may find that data caching is not sufficient and results in duplicate data being loaded. You can mitigate duplicate data by using <code>form_properties</code> or <code>nav_context</code> for simple data sharing.</li>
+</ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p><strong>Without a load_data method</strong></p>
 <pre><code class="language-python"># routes.py

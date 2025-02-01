@@ -42,23 +42,21 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Overview</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#third-party-dependency">Third Party Dependency</a>
+    <li class="toctree-l2"><a class="reference internal" href="#routing-basics">Routing Basics</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#clone-from-github">Clone from GitHub</a>
+    <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#server-vs-client-routing">Server vs Client Routing</a>
     </li>
     </ul>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="quick-start/">Quick Start</a>
+                <li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="how-it-works/">How It Works</a>
+                <li class="toctree-l1"><a class="reference internal" href="quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -141,24 +139,29 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
-<p>This documentation provides an overview of the API for the routing library.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<h3 id="third-party-dependency">Third Party Dependency<a class="headerlink" href="#third-party-dependency" title="Permanent link">&para;</a></h3>
-<p>To use as a third party dependency, utilise the code <code>3PIDO5P3H4VPEMPL</code></p>
-<h3 id="clone-from-github">Clone from GitHub<a class="headerlink" href="#clone-from-github" title="Permanent link">&para;</a></h3>
-<ul>
-<li>In the Anvil editor, click the <strong>Clone from GitHub</strong> button.</li>
-<li>Select Authentication <code>"Anonymous"</code>.</li>
-<li>Enter the URL for the routing library repository: <code>https://github.com/anvil-works/routing</code>.</li>
-<li>Click <strong>Clone App</strong>.</li>
-</ul>
-<p>This will clone the routing library into your Anvil account.
-Whenever changes are made to the GitHub repository, you can click <code>Sync Git Remotes</code> to update your clone.</p>
+<p>Routing lets you configure URL paths to allow your users to navigate to specific parts and states of your app directly through their browser's address bar.</p>
+<p>In general, this brings your app closer to a regular web page in terms of usage standards. For example, this can be useful for letting users bookmark specific parts of your app, or enabling usage of the back and forward buttons to navigate throughout your app.</p>
+<h2 id="routing-basics">Routing Basics<a class="headerlink" href="#routing-basics" title="Permanent link">&para;</a></h2>
+<p>A route is an object with, among other attributes, a URL path, and a form to open when navigating to this route.</p>
+<p>As an app developer, you will need to define routes for your app.
+When the URL changes, the router will look for a matching route.
+The ultimate goal is to open the form associated with the given URL.</p>
+<p>The router will attempt to match routes in the order they are defined.</p>
+<p>When a route is found, the router will call the route's <code>before_load</code> method.
+If the <code>before_load</code> method raises a <code>Redirect</code>, the router will navigate to the redirected URL.</p>
+<p>If the route has a <code>load_data</code> method, it will be called, and the return value will be available as the <code>data</code> property on the <code>RoutingContext</code>.</p>
+<p>Once the <code>load_data</code> method has been called, the router will call the route's <code>load_form</code> method. A <code>routing_context</code> will be passed to this method. By default, the <code>load_form</code> method will call <code>anvil.open_form</code> on the matching route's form, with <code>routing_context</code> passed as a keyword argument.</p>
+<h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h2>
+<p>There are two types of caching: form caching and data caching.</p>
+<p>If a form is cached, instead of creating a new instance, the router will call the route's <code>load_form</code> method with the cached form instance.</p>
+<p>If data is cached, the router will only call the <code>load_data</code> method if the data is stale. See the <a href="/caching">Caching</a> section for more details.</p>
+<h2 id="server-vs-client-routing">Server vs Client Routing<a class="headerlink" href="#server-vs-client-routing" title="Permanent link">&para;</a></h2>
+<p>Should the user open the app directly through a URL as their initial page request, the routing process will occur entirely on the server. Otherwise, if the user is navigating from within the app, the process occurs on the client.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="quick-start/" class="btn btn-neutral float-right" title="Quick Start">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -182,7 +185,7 @@ Whenever changes are made to the GitHub repository, you can click <code>Sync Git
     
     
     
-      <span><a href="quick-start/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="installation/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
@@ -202,5 +205,5 @@ Whenever changes are made to the GitHub repository, you can click <code>Sync Git
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2024-11-14 01:10:42.578881+00:00
+Build Date UTC : 2025-02-01 00:42:24.165128+00:00
 -->

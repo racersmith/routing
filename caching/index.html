@@ -44,11 +44,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -86,13 +86,13 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Caching</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#clearing-cache">Clearing Cache</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#form-caching">Form Caching</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#data-caching">Data Caching</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#caching-keys">Caching Keys</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#clearing-cache">Clearing Cache</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#invalidating-cache">Invalidating Cache</a>
     </li>
@@ -150,11 +150,6 @@
                 <h1 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h1>
 <p>The routing library provides simple caching mechanisms for forms and data.
 By default, the routing library will <strong>NOT</strong> cache any forms or data.</p>
-<h2 id="clearing-cache">Clearing Cache<a class="headerlink" href="#clearing-cache" title="Permanent link">&para;</a></h2>
-<p>To clear the cache, you can call the <code>clear_cache</code> function.</p>
-<pre><code class="language-python">from routing import router
-router.clear_cache()
-</code></pre>
 <h2 id="form-caching">Form Caching<a class="headerlink" href="#form-caching" title="Permanent link">&para;</a></h2>
 <p>To override the default behaviour, you can set the <code>Route.cache_form</code> attribute to <code>True</code>. This will cause the routing library to cache all forms.</p>
 <pre><code class="language-python">from routing.router import Route
@@ -175,8 +170,13 @@ Route.cache_form = True
 </div>
 <h2 id="caching-keys">Caching Keys<a class="headerlink" href="#caching-keys" title="Permanent link">&para;</a></h2>
 <p>The routing library will cache forms and data using a cache key. The key is a combination of the path and the dictionary returned by the <code>cache_deps</code> method. By default, the <code>cache_deps</code> method returns the <code>query</code> dictionary.</p>
+<h2 id="clearing-cache">Clearing Cache<a class="headerlink" href="#clearing-cache" title="Permanent link">&para;</a></h2>
+<p>To clear all cached content, you can call the <code>clear_cache</code> function.</p>
+<pre><code class="language-python">from routing import router
+router.clear_cache()
+</code></pre>
 <h2 id="invalidating-cache">Invalidating Cache<a class="headerlink" href="#invalidating-cache" title="Permanent link">&para;</a></h2>
-<p>If you want to invalidate the cache, you can call the <code>invalidate</code> function. Invalidating the cache will remove data and forms from the cache.</p>
+<p>If you want to invalidate the cache for a specific path, you can call the <code>invalidate</code> function. Invalidating the cache will remove data and forms from the cache.</p>
 <pre><code class="language-python">from routing import router
 router.invalidate(path=&quot;/articles&quot;)
 </code></pre>

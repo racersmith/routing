@@ -44,11 +44,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../quick-start/">Quick Start</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../how-it-works/">How It Works</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -148,10 +148,10 @@
                 <h1 id="query">Query<a class="headerlink" href="#query" title="Permanent link">&para;</a></h1>
 <p>Query parameters are encoded in a URL following a <code>?</code>, e.g. <code>/dashboard?tab=sales&amp;page=1</code>.
 Query parameters may be referred to by different names, e.g. search, search params, query params, etc.</p>
+<p>Query parameters are used to make the URL reflect the state of the page. When the page updates in response to user interaction, the URL can be made to change to reflect those changes. Loading a URL with specific query parameters will also load the page in the state indicated by the parameters.</p>
+<p>For example, if you have a dashboard page with a tab component, you can use the query to encode the active tab.</p>
 <p>In this routing library, we will refer to <code>query</code> as a dictionary of query parameters.
 And a <code>query string</code> will be the URL-encoded version of the <code>query</code>.</p>
-<p>The <code>query</code> is best used to encode the state of the page.
-For example, if you have a dashboard page with a tab component, you can use the query to encode the active tab.</p>
 <h2 id="navigating">Navigating<a class="headerlink" href="#navigating" title="Permanent link">&para;</a></h2>
 <p>Let's say you have a dashboard page with a tab component.
 The tab component has 2 tabs, income and expenses.</p>

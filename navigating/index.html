@@ -44,11 +44,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../how-it-works/">How It Works</a>
+                <li class="toctree-l1"><a class="reference internal" href="../quick-start/">Quick Start</a>
                 </li>
               </ul>
               <ul>
@@ -146,9 +146,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">&para;</a></h1>
-<p>There are two ways to navigate. The first is with the <code>navigate</code> function, and the second is with a <a href="/navigating/Navigation%20Components">navigation component</a>.</p>
+<p>There are two ways to navigate. The first is with the <code>navigate</code> function, and the second is with a <a href="/navigating/navigation-components">navigation component</a>.</p>
 <h2 id="navigating-with-navigate">Navigating with <code>navigate</code><a class="headerlink" href="#navigating-with-navigate" title="Permanent link">&para;</a></h2>
-<p>The <code>navigate</code> function is a function that you will likely call from a click handler.</p>
+<p>The <code>navigate</code> function lets you navigate to a specific path through code. It is a function that you will likely call from a click handler.</p>
+<p>Do note that the <code>navigate</code> function can only be called from client code.</p>
 <pre><code class="language-python">from routing.router import navigate
 
 class Form(FormTemplate):
