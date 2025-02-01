@@ -3,15 +3,6 @@
 The routing library provides simple caching mechanisms for forms and data.
 By default, the routing library will **NOT** cache any forms or data.
 
-## Clearing Cache
-
-To clear the cache, you can call the `clear_cache` function.
-
-```python
-from routing import router
-router.clear_cache()
-```
-
 ## Form Caching
 
 To override the default behaviour, you can set the `Route.cache_form` attribute to `True`. This will cause the routing library to cache all forms.
@@ -44,9 +35,18 @@ You can enable data caching by setting the `cache_data` attribute on the route t
 
 The routing library will cache forms and data using a cache key. The key is a combination of the path and the dictionary returned by the `cache_deps` method. By default, the `cache_deps` method returns the `query` dictionary.
 
+## Clearing Cache
+
+To clear all cached content, you can call the `clear_cache` function.
+
+```python
+from routing import router
+router.clear_cache()
+```
+
 ## Invalidating Cache
 
-If you want to invalidate the cache, you can call the `invalidate` function. Invalidating the cache will remove data and forms from the cache.
+If you want to invalidate the cache for a specific path, you can call the `invalidate` function. Invalidating the cache will remove data and forms from the cache.
 
 ```python
 from routing import router

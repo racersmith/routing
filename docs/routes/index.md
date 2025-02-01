@@ -57,6 +57,9 @@ ContactRoute = Route.create(path="/contact", form="Pages.Contact")
 `pending_min=0.5`
 : The minimum time to show the pending form when the data is loading.
 
+`cache_form=False`
+: Whether to cache the route's form. By default this is `False`.
+
 `cache_data=False`
 : Whether to cache data. By default this is `False`.
 
@@ -90,7 +93,9 @@ ContactRoute = Route.create(path="/contact", form="Pages.Contact")
 : This method is called with two arguments. The first argument is a form name (e.g. `"Pages.Index"`) or, if you are using cached forms, the cached form instance. The second argument is the `RoutingContext` instance. By default this calls `anvil.open_form` on the form.
 
 `cache_deps`
-: Caching is determined by the `path` and the return value of the `cache_deps` method. The default implementation returns the `query` dictionary. That is, a route with the same `path` and `query` will be considered to be the same route. And routes with different `query` will be considered to be different routes.
+: Returns an object, by default the `query` dictionary (more information in the [query section](/routes/query/) and the [RoutingContext section](/routing-context/)). This method is part of the process of creating caching keys.
+: When a route needs to cache a form or data (more information in the [caching section](/caching/)), it does so by storing it in a global dictionary under a caching key. This key is composed of the route's path and the return of its `cache_deps` method at the moment of caching.
+: If, when accessing the same route, its `cache_deps` method returns something different than when caching first occured, the caching key points to a different place within the cache, usually empty. The router thus understands this as a new route and navigates to it again.
 
 ## Not Found Form
 
