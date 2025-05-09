@@ -28,7 +28,7 @@ from .._utils import (
 )
 from .._view_transition import ViewTransition
 
-__version__ = "0.3.4"
+__version__ = "0.3.5"
 
 waiting = False
 undoing = False

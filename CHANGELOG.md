@@ -1,6 +1,20 @@
 # Changelog
 
-## v0.3.4 (01/01/1970)
+## v0.3.5 (01/01/1970)
+## What's Changed
+### 🐛 Bug Fixes
+
+- Fix fallbacks for og:title and og:description [#61](https://github.com/anvil-works/routing/pull/61)
+
+## Contributors
+Thanks to all our contributors! 🎉
+@s-cork
+
+**Full Changelog**: https://github.com/anvil-works/routing/compare/v0.3.4...v0.3.5
+
+---
+
+## v0.3.4 (09/05/2025)
 ## What's Changed
 ### 🐛 Bug Fixes
 
