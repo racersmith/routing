@@ -27,8 +27,8 @@ __version__ = "0.3.5"
 
 # Router config for server-side features
 config = {
-    "SITEMAP": True,
-    "ROBOTS": True,
+    "sitemap": True,
+    "robots": True,
 }
 
 
