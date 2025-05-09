@@ -113,7 +113,7 @@ class MetaImageTagStore(BaseNodeStore):
         return [MetaImageNode(name)]
 
 
-class SpecialMetaTagStore(BaseNodeStore):
+class TitleTagStore(BaseNodeStore):
     @staticmethod
     def get_nodes(name: str):
         # Returns both a Node and MetaNode for special cases (e.g., title, description)
@@ -121,11 +121,16 @@ class SpecialMetaTagStore(BaseNodeStore):
 
 
 NAME_TO_STORE = {
-    "title": SpecialMetaTagStore,
-    "description": SpecialMetaTagStore,
+    "title": TitleTagStore,
+    "description": MetaTagStore,
     "og:title": MetaTagStore,
     "og:description": MetaTagStore,
     "og:image": MetaImageTagStore,
+}
+
+FALLBACK_STORE = {
+    "og:title": "title",
+    "og:description": "description",
 }
 
 
@@ -136,6 +141,12 @@ def get_tag_store(name: str):
 
 
 def update_meta_tags(meta):
+    meta = {**meta}  # copy since we might mutate it
+
+    for key, fallback_key in FALLBACK_STORE.items():
+        if key not in meta and fallback_key in meta:
+            meta[key] = meta[fallback_key]
+
     for name, content in meta.items():
         tag = get_tag_store(name)
         for node in tag.nodes:
