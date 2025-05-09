@@ -9,7 +9,6 @@ from ._constants import NO_CACHE
 from ._exceptions import Redirect
 from ._import_utils import import_form
 from ._logger import logger
-from ._meta import get_default_meta
 from ._navigate import nav_args_to_location, navigate
 from ._segments import Segment
 from ._utils import encode_query_params, trim_path
@@ -140,7 +139,7 @@ class Route:
         return None
 
     def meta(self, **loader_args):
-        return get_default_meta()
+        return {}
 
     def parse_params(self, params):
         return params

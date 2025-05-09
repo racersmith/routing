@@ -156,7 +156,7 @@ def _do_navigate(context):
 
     # Optimistically update meta tags before opening the form
     meta = route.meta(**context._loader_args)
-    ensure_dict(meta, "meta")
+    meta = ensure_dict(meta, "meta")
     update_meta_tags(meta)
 
     logger.debug(f"Match key {match.key}")
