@@ -4,10 +4,6 @@
 
 The routing library provides a router for your Anvil app. It uses a combination of client and server routing to provide a seamless experience for your users.
 
-## BETA
-
-This library is currently in beta. It is not yet ready for production. Please use with caution.
-
 ## Third party dependency
 
 To use as a third party dependency, use the code `3PIDO5P3H4VPEMPL`
