@@ -32,7 +32,7 @@ The client code structure should look like this:
 ```python
 # startup.py
 from routing.router import launch
-from .import routes
+from . import routes
 
 if __name__ == "__main__":
     launch()
