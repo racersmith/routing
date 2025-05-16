@@ -65,7 +65,7 @@ class ArticleRoute(Route):
     form = "Pages.Article"
 
     def load_data(self, **loader_args):
-        row = loader_args["nav_context"].get("row")
+        row = loader_args["nav_context"].get("row", None)
         if row is None:
             id = loader_args["path_params"]["id"]
             row = anvil.server.call("get_row", id)
