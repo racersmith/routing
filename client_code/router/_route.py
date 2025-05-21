@@ -169,7 +169,9 @@ class Route:
     # def prepare_query(self, query):
     #     return query
 
-    def __init_subclass__(cls) -> None:
+    def __init_subclass__(cls, **kws) -> None:
+        super().__init_subclass__(**kws)
+
         if cls.__dict__.get("default_not_found"):
             cls.set_default_not_found(cls)
 
