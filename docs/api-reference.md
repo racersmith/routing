@@ -43,6 +43,11 @@ All attributes can be accessed from the `routing.router` module.
 `get_routing_context()`
 : Returns the current routing context.
 
+`use_data(context_or_path_or_url=None, *, path=None, params=None, query=None, hash=None)`
+: Loads and returns the data for the specified url/context (or for the specified path/params/query/hash). Returns the data (or raises if there is an error). If called with no arguments, uses the current navigation context.
+
+Can be useful for routes that share data. Or layouts that need access to the data for the current route.
+
 `get_url()`
 `get_url(*, path=None, params=None, query=None, hash=None, full=False)`
 `get_url(path, **kws)`
