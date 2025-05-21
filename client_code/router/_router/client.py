@@ -179,7 +179,7 @@ def _do_navigate(context):
             logger.debug(f"cached form is already open: {form}")
             return
         # TODO: update the context probably
-        match.route.load_form(form, context)
+        match.route.load_form(form, cached_context)
         return
 
     # TODO: how does cached forms work with cache modes for data?
