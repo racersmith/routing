@@ -48,9 +48,6 @@ class RoutingContext(EventEmitter):
         self.query = context.match.query
         self.hash = context.match.hash
         self.route = context.match.route
-        self._data = context._data
-        self._error = context._error
-        # we probably don't want to copy over the listeners or the blockers
 
         if prev_match.query != self.query:
             self.raise_event("query_changed", query=self.query)
