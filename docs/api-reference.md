@@ -75,7 +75,32 @@ Can be useful for routes that share data. Or layouts that need access to the dat
 `before_load_hook(func)`
 : Decorator. Registers a method as a before-load hook for a route. Multiple hooks are supported; all will be called in base-to-subclass order, and their returned dictionaries merged into the navigation context. Enables composable, reusable, and global route behaviors.
 
-See examples in the navigation section
+**Example:**
+```python
+from routing.router import Route, before_load_hook, Redirect
+
+class AuthenticatedRoute(Route):
+    @before_load_hook
+    def set_user(self, nav_context, **loader_args):
+        nav_context["user"] = get_current_user()
+
+    @before_load_hook
+    def check_permissions(self, nav_context, **loader_args):
+        user = nav_context.get("user")
+        if not user or not user.has_permission():
+            raise Redirect(path="/login")
+```
+
+You may also attach hooks globally to all routes by assigning to the base class:
+```python
+@before_load_hook
+def global_hook(self, nav_context, **loader_args):
+    nav_context["feature_enabled"] = True
+
+Route.global_hook = global_hook
+```
+
+See the navigation documentation for advanced composition and usage patterns.
 
 ## Classes
 

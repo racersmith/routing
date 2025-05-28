@@ -196,6 +196,31 @@ Route.global_hook = global_hook
 
 ### Best Practices
 - Each hook should return only the context it wants to add (or raise for control flow).
-- Avoid mutating incoming context directly; always return a new dict to be merged.
+- Hooks should expect a `nav_context` kwarg and can read or update it for composable navigation logic.
+- Hooks may also return a dict with additional context to be merged into `nav_context` after the hook runs. This allows both direct mutation and returned values to contribute to the final context.
+
 - Use mixins or base classes to share common hooks across multiple routes.
 - Global hooks are powerful for cross-cutting concerns, but use them judiciously to avoid surprises.
+
+**Example:**
+```python
+from routing.router import Route, before_load_hook, Redirect
+
+class AuthenticatedRoute(Route):
+    @before_load_hook
+    def set_user(self, nav_context, **loader_args):
+        nav_context["user"] = get_current_user()
+
+    @before_load_hook
+    def check_permissions(self, nav_context, **loader_args):
+        user = nav_context.get("user")
+        if not user or not user.has_permission():
+            raise Redirect(path="/login")
+
+class FeatureRoute(AuthenticatedRoute):
+    @before_load_hook
+    def add_feature_flag(self, nav_context, **loader_args):
+        nav_context["feature_enabled"] = True
+```
+
+Hooks are called in order, and each can build on the output of previous hooks via `nav_context`.

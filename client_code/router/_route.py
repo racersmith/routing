@@ -106,6 +106,8 @@ def before_load_hook(func):
     """
     Decorator to register a method as a before_load hook for a Route.
     Hooks are called in the order they are defined on the class.
+    Each hook receives a 'nav_context' keyword argument (the context dict accumulated so far),
+    which can be read and updated for composable navigation logic.
     """
     func._is_before_load_hook = True
     return func
@@ -141,10 +143,12 @@ class Route:
         return type(name, (cls,), cls_dict)
 
     def before_load(self, **loader_args):
+        # Use nav_context from loader_args if present, else start with empty dict
+        ctx = loader_args.pop("nav_context", {})
         hooks = getattr(self.__class__, "_before_load_hooks", [])
-        ctx = {}
         for hook in hooks:
-            result = hook(self, **loader_args)
+            # Pass nav_context to each hook for composability
+            result = hook(self, nav_context=ctx, **loader_args)
             if result:
                 ctx.update(result)
         return ctx
