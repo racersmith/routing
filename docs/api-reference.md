@@ -72,6 +72,11 @@ Can be useful for routes that share data. Or layouts that need access to the dat
 `confirm(content, *args, dismissible=True, **kwargs)`
 : Shows a confirmation dialog. If `dismissible` is `True`, the dialog will be dismissed when the user navigates to a new page. To override Anvil's default alert, you can set the `anvil.alert = router.alert`.
 
+`before_load_hook(func)`
+: Decorator. Registers a method as a before-load hook for a route. Multiple hooks are supported; all will be called in base-to-subclass order, and their returned dictionaries merged into the navigation context. Enables composable, reusable, and global route behaviors.
+
+See examples in the navigation section
+
 ## Classes
 
 `Route`
