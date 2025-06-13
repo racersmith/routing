@@ -72,6 +72,43 @@ Can be useful for routes that share data. Or layouts that need access to the dat
 `confirm(content, *args, dismissible=True, **kwargs)`
 : Shows a confirmation dialog. If `dismissible` is `True`, the dialog will be dismissed when the user navigates to a new page. To override Anvil's default alert, you can set the `anvil.alert = router.alert`.
 
+`hooks.before_load(func)`
+: Decorator to register a method as a before_load hook for a Route. Hooks are called in the order they are defined on the class. Each hook receives a `nav_context` keyword argument (the context dict accumulated so far), which can be read and updated for composable navigation logic.
+
+```python
+from routing.router import Route, hooks, Redirect
+
+class AuthenticatedRoute(Route):
+    # Style 1: Mutate nav_context directly
+    @hooks.before_load
+    def set_user(self, nav_context, **loader_args):
+        nav_context["user"] = get_current_user()
+
+    # Style 2: Return a partial dict to be merged into nav_context
+    @hooks.before_load
+    def set_user_partial(self, nav_context, **loader_args):
+        return {"user": get_current_user()}
+
+    @hooks.before_load
+    def check_permissions(self, nav_context, **loader_args):
+        user = nav_context.get("user")
+        if not user or not user.has_permission():
+            raise Redirect(path="/login")
+
+# Both styles are supported; the returned dictionary (if any) will be merged into nav_context after the hook runs.
+```
+
+You may also attach hooks globally to all routes by assigning to the base class:
+
+```python
+@hooks.before_load
+def global_hook(self, nav_context, **loader_args):
+    nav_context["feature_enabled"] = True
+Route.global_hook = global_hook
+```
+
+See the navigation documentation for advanced composition and usage patterns.
+
 ## Classes
 
 `Route`
