@@ -102,17 +102,6 @@ def _create_server_route(cls):
         return AppResponder(data={"cache": CACHED_DATA}, meta=meta).load_app()
 
 
-def before_load(func):
-    """
-    Decorator to register a method as a before_load hook for a Route.
-    Hooks are called in the order they are defined on the class.
-    Each hook receives a 'nav_context' keyword argument (the context dict accumulated so far),
-    which can be read and updated for composable navigation logic.
-    """
-    func._is_before_load_hook = True
-    return func
-
-
 class Route:
     path = None
     segments = []
