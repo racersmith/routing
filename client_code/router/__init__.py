@@ -4,6 +4,7 @@
 # ruff: noqa: F401, F811
 from anvil.history import history as _history
 
+from . import hooks
 from ._alert import alert, confirm
 from ._cached import clear_cache
 from ._constants import (
@@ -18,7 +19,7 @@ from ._invalidate import invalidate
 from ._loader import use_data
 from ._logger import debug_logging, logger
 from ._navigate import navigate
-from ._route import Route, TemplateWithContainerRoute, before_load_hook, open_form
+from ._route import Route, TemplateWithContainerRoute, open_form
 from ._router import NavigationBlocker, launch, navigation_emitter
 from ._url import get_url
 from ._view_transition import use_transitions

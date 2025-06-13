@@ -147,26 +147,26 @@ In this example, `routing_context.nav_context["show_sidebar"]` will be `True` wh
 
 ---
 
-## Advanced: Composing before_load Hooks
+## Advanced: Composing hooks.before_loads
 
-The `@before_load_hook` decorator enables you to compose multiple hooks for a single route, supporting advanced patterns such as mixins, inheritance, and global hooks.
+The `@hooks.before_load` decorator enables you to compose multiple hooks for a single route, supporting advanced patterns such as mixins, inheritance, and global hooks.
 
 ### Multiple Hooks and Inheritance
 
 Hooks are collected from all base classes in method resolution order (MRO), so you can layer behaviors:
 
 ```python
-from routing.router import Route, before_load_hook
+from routing.router import Route, hooks, Redirect
 
 class AuthenticatedRoute(Route):
-    @before_load_hook
+    @hooks.before_load
     def check_auth(self, **loader_args):
         if not user_is_authenticated():
             raise Redirect(path="/login")
         return {"user": get_current_user()}
 
 class FeatureFlagMixin:
-    @before_load_hook
+    @hooks.before_load
     def add_feature_flag(self, **loader_args):
         return {"feature_enabled": True}
 
@@ -174,7 +174,7 @@ class DashboardRoute(FeatureFlagMixin, AuthenticatedRoute):
     path = "/dashboard"
     form = "Pages.Dashboard"
 
-    @before_load_hook
+    @hooks.before_load
     def dashboard_flag(self, **loader_args):
         return {"show_dashboard": True}
 ```
@@ -186,7 +186,7 @@ Hooks will run in base-to-leaf order: `check_auth` → `add_feature_flag` → `d
 You can attach a hook to the `Route` base class to apply it to all routes:
 
 ```python
-@before_load_hook
+@hooks.before_load
 def global_hook(self, **loader_args):
     # e.g., add analytics or logging
     return {"analytics_id": "xyz"}
@@ -204,21 +204,21 @@ Route.global_hook = global_hook
 
 **Example:**
 ```python
-from routing.router import Route, before_load_hook, Redirect
+from routing.router import Route, hooks, Redirect, Redirect
 
 class AuthenticatedRoute(Route):
-    @before_load_hook
+    @hooks.before_load
     def set_user(self, nav_context, **loader_args):
         nav_context["user"] = get_current_user()
 
-    @before_load_hook
+    @hooks.before_load
     def check_permissions(self, nav_context, **loader_args):
         user = nav_context.get("user")
         if not user or not user.has_permission():
             raise Redirect(path="/login")
 
 class FeatureRoute(AuthenticatedRoute):
-    @before_load_hook
+    @hooks.before_load
     def add_feature_flag(self, nav_context, **loader_args):
         nav_context["feature_enabled"] = True
 ```

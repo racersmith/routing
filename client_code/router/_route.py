@@ -102,7 +102,7 @@ def _create_server_route(cls):
         return AppResponder(data={"cache": CACHED_DATA}, meta=meta).load_app()
 
 
-def before_load_hook(func):
+def before_load(func):
     """
     Decorator to register a method as a before_load hook for a Route.
     Hooks are called in the order they are defined on the class.
@@ -193,7 +193,7 @@ class Route:
     def __init_subclass__(cls, **kws) -> None:
         super().__init_subclass__(**kws)
 
-        # Collect all @before_load_hook methods in MRO order, preserve definition order
+        # Collect all @before_load hook methods in MRO order, preserve definition order
         hooks = []
         for base in cls.__mro__:
             for attr in base.__dict__.values():
@@ -201,6 +201,11 @@ class Route:
                     hooks.append(attr)
         # Reverse to get base-to-leaf order (so hooks run from base to subclass)
         cls._before_load_hooks = list(reversed(hooks))
+        if hooks and cls.before_load != Route.before_load:
+            print(
+                f"WARNING: {cls.__name__} "
+                "has before_load hook(s) but also overrides the before_load method"
+            )
 
         if cls.__dict__.get("default_not_found"):
             cls.set_default_not_found(cls)
